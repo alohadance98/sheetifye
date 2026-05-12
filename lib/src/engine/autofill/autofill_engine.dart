@@ -1,0 +1,37 @@
+import 'package:sheetify/src/core/utils/grid_utils.dart';
+import 'package:sheetify/src/engine/formula/tokenizer.dart';
+import 'package:sheetify/src/engine/formula/parser.dart';
+import 'package:sheetify/src/engine/formula/formula_ast.dart';
+import 'package:sheetify/src/engine/structure/reference_shift_engine.dart';
+
+class AutofillEngine {
+  final _shiftEngine = ReferenceShiftEngine();
+
+  Map<String, String> generateFill(GridRange source, GridRange target) {
+    final Map<String, String> results = {};
+    
+    // Determine fill direction
+    final isDown = target.minRow > source.maxRow;
+    final isRight = target.minCol > source.maxCol;
+
+    if (isDown) {
+      final sourceHeight = source.maxRow - source.minRow + 1;
+      for (int r = target.minRow; r <= target.maxRow; r++) {
+        for (int c = target.minCol; c <= target.maxCol; c++) {
+          final sourceRow = source.minRow + (r - target.minRow) % sourceHeight;
+          final sourceValue = ""; // We need to fetch this from the sheet
+          // Placeholder for fill logic
+        }
+      }
+    }
+    
+    return results;
+  }
+
+  String fillFormula(String formula, int rowOffset, int colOffset) {
+    if (!formula.startsWith('=')) return formula;
+    
+    // Autofill formula shifting is basically a reference shift by the offset
+    return _shiftEngine.shiftFormula(formula, rowAt: 0, rowCount: rowOffset, colAt: 0, colCount: colOffset);
+  }
+}

@@ -1,0 +1,58 @@
+# Theming Sheetify
+
+Sheetify is designed to feel native to your application. It adapts automatically to your `ThemeData`, but also provides granular control via `SheetifyThemeData`.
+
+## Automatic Theming
+
+By default, Sheetify detects your app's brightness (Light/Dark) and primary colors.
+
+## Customizing the Theme
+
+Use the `theme` parameter in the `Sheetify` widget:
+
+```dart
+Sheetify.asset(
+  'inventory.xlsx',
+  theme: SheetifyThemeData(
+    primary: Colors.indigo,
+    accent: Colors.orange,
+    gridLineColor: Colors.grey.withOpacity(0.2),
+    headerBackground: Colors.grey[100]!,
+    headerTextColor: Colors.black87,
+    selectionColor: Colors.indigo.withOpacity(0.1),
+    fontFamily: 'Roboto Mono',
+  ),
+)
+```
+
+## Dark Mode
+
+Sheetify includes a built-in dark theme optimized for readability:
+
+```dart
+Sheetify.asset(
+  'inventory.xlsx',
+  theme: SheetifyThemeData.dark(),
+)
+```
+
+## Design Tokens
+
+| Token | Description | Default (Light) |
+|-------|-------------|-----------------|
+| `primary` | Selection borders, focus indicators | `Blue` |
+| `background` | Spreadsheet canvas background | `White` |
+| `surface` | Cell background | `White` |
+| `headerBackground` | Row/Column header color | `Grey[50]` |
+| `gridLineColor` | Lines between cells | `Grey[300]` |
+| `selectionColor` | Fill color for selected ranges | `Blue[50]` |
+
+## Typography
+
+You can override the default font family for the entire spreadsheet:
+
+```dart
+SheetifyThemeData(
+  fontFamily: GoogleFonts.inter().fontFamily,
+)
+```

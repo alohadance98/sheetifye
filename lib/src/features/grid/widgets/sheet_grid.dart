@@ -1,0 +1,591 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sheetify/src/core/theme/sheetify_theme.dart';
+import 'package:sheetify/src/core/theme/sheetify_theme_data.dart';
+import 'package:sheetify/src/core/theme/sheetify_dimensions.dart';
+import 'package:sheetify/src/core/theme/sheetify_spacing_tokens.dart';
+import 'package:sheetify/src/features/workbook/state/workbook_state.dart';
+import 'package:sheetify/src/engine/render/grid_painter.dart';
+import 'package:sheetify/src/engine/scrolling/scrolling_engine.dart';
+import 'package:sheetify/src/engine/render/text_painter_cache.dart';
+import 'package:sheetify/src/core/utils/grid_utils.dart';
+import 'package:sheetify/src/domain/entities/workbook.dart';
+import 'package:sheetify/src/engine/overlays/overlay_manager.dart';
+import 'package:sheetify/src/engine/overlays/selection_overlay_layer.dart';
+import 'package:sheetify/src/engine/overlays/active_cell_overlay_layer.dart';
+import 'package:sheetify/src/engine/overlays/search_overlay_layer.dart';
+import 'package:sheetify/src/engine/overlays/position_resolver.dart';
+import 'package:sheetify/src/engine/overlays/cell_editor_overlay.dart';
+import 'package:sheetify/src/engine/layout/layout_engine.dart';
+import 'package:sheetify/src/engine/layout/layout_interaction.dart';
+import 'package:sheetify/src/engine/virtualization/virtualization_engine.dart';
+
+class SheetGrid extends ConsumerStatefulWidget {
+  const SheetGrid({super.key});
+
+  @override
+  ConsumerState<SheetGrid> createState() => _SheetGridState();
+}
+
+class _SheetGridState extends ConsumerState<SheetGrid> {
+  late ScrollController _horizontalController;
+  late ScrollController _verticalController;
+  late ScrollingEngine _scrollingEngine;
+  final _textPainterCache = TextPainterCache();
+  final _overlayManager = OverlayManager();
+
+  LayoutInteractionState _interactionState = LayoutInteractionState();
+
+  double _scrollX = 0;
+  double _scrollY = 0;
+  bool _isSyncing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _horizontalController = ScrollController()..addListener(_onScroll);
+    _verticalController = ScrollController()..addListener(_onScroll);
+
+    _scrollingEngine = ScrollingEngine(
+      horizontalController: _horizontalController,
+      verticalController: _verticalController,
+    );
+
+    _overlayManager.addLayer(SelectionOverlayLayer());
+    _overlayManager.addLayer(ActiveCellOverlayLayer());
+    _overlayManager.addLayer(SearchOverlayLayer());
+  }
+
+  void _onScroll() {
+    if (_isSyncing) return;
+
+    setState(() {
+      _scrollX = _horizontalController.hasClients ? _horizontalController.offset : 0;
+      _scrollY = _verticalController.hasClients ? _verticalController.offset : 0;
+    });
+  }
+
+  @override
+  void dispose() {
+    _horizontalController.dispose();
+    _verticalController.dispose();
+    _textPainterCache.clear();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final state = ref.watch(workbookProvider);
+    final layout = ref.watch(layoutProvider);
+    final sheet = state.workbook.activeSheet;
+    final theme = SheetifyTheme.of(context);
+
+    final virtualizationEngine = VirtualizationEngine(layout: layout);
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final totalWidth = constraints.maxWidth - theme.rowHeaderWidth;
+        final totalHeight = constraints.maxHeight - theme.columnHeaderHeight;
+
+        final currentX = _scrollX;
+        final currentY = _scrollY;
+
+        final viewportRange = virtualizationEngine.calculateViewportRange(
+          scrollX: currentX,
+          scrollY: currentY,
+          viewportWidth: totalWidth,
+          viewportHeight: totalHeight,
+          totalRows: sheet.rowCount,
+          totalCols: sheet.columnCount,
+        );
+
+        return CallbackShortcuts(
+          bindings: {
+            const SingleActivator(LogicalKeyboardKey.keyZ, control: true): () =>
+                ref.read(workbookProvider.notifier).undo(),
+            const SingleActivator(LogicalKeyboardKey.keyZ, meta: true): () =>
+                ref.read(workbookProvider.notifier).undo(),
+            const SingleActivator(LogicalKeyboardKey.keyY, control: true): () =>
+                ref.read(workbookProvider.notifier).redo(),
+            const SingleActivator(LogicalKeyboardKey.keyY, meta: true): () =>
+                ref.read(workbookProvider.notifier).redo(),
+            const SingleActivator(LogicalKeyboardKey.keyC, control: true): () =>
+                ref.read(workbookProvider.notifier).copy(),
+            const SingleActivator(LogicalKeyboardKey.keyC, meta: true): () =>
+                ref.read(workbookProvider.notifier).copy(),
+            if (!state.readOnly) ...{
+              const SingleActivator(LogicalKeyboardKey.keyV, control: true): () =>
+                  ref.read(workbookProvider.notifier).paste(),
+              const SingleActivator(LogicalKeyboardKey.keyV, meta: true): () =>
+                  ref.read(workbookProvider.notifier).paste(),
+              const SingleActivator(LogicalKeyboardKey.keyX, control: true): () =>
+                  ref.read(workbookProvider.notifier).cut(),
+              const SingleActivator(LogicalKeyboardKey.keyX, meta: true): () =>
+                  ref.read(workbookProvider.notifier).cut(),
+            },
+          },
+          child: MouseRegion(
+            cursor: _getCursor(),
+            onHover: (event) => _handleGlobalHover(event, layout, sheet, theme),
+            child: NotificationListener<ScrollNotification>(
+              onNotification: (notification) {
+                if (notification is ScrollUpdateNotification) {
+                  final metrics = notification.metrics;
+                  if (metrics.axis == Axis.vertical) {
+                    if (metrics.pixels > metrics.maxScrollExtent - 500) {
+                      final currentRow = layout.getRowIndex(metrics.pixels, sheet.rowCount);
+                      ref.read(workbookProvider.notifier).expandIfNeeded(currentRow + 50, 0);
+                    }
+                  } else {
+                    if (metrics.pixels > metrics.maxScrollExtent - 500) {
+                      final currentCol = layout.getColumnIndex(metrics.pixels, sheet.columnCount);
+                      ref.read(workbookProvider.notifier).expandIfNeeded(0, currentCol + 10);
+                    }
+                  }
+                }
+                return false;
+              },
+              child: Listener(
+                onPointerSignal: (pointerSignal) {
+                  if (pointerSignal is PointerScrollEvent) {
+                    _scrollingEngine.scrollBy(
+                      pointerSignal.scrollDelta.dx,
+                      pointerSignal.scrollDelta.dy,
+                    );
+                  }
+                },
+                onPointerMove: (event) {
+                  if (event.buttons == kPrimaryButton || event.kind == PointerDeviceKind.touch) {
+                    _scrollingEngine.scrollBy(-event.delta.dx, -event.delta.dy);
+                  }
+                },
+                child: GestureDetector(
+                  onTapDown: (details) => _handleGesture(details.localPosition, layout, theme),
+                  onDoubleTapDown: (details) => _handleGesture(
+                    details.localPosition,
+                    layout,
+                    theme,
+                    isDoubleTap: true,
+                  ),
+                  child: Stack(
+                    children: [
+                      // Layer 1: Base Grid
+                      Positioned(
+                        left: theme.rowHeaderWidth,
+                        top: theme.columnHeaderHeight,
+                        right: 0,
+                        bottom: 0,
+                        child: ClipRect(
+                          child: _buildGridPart(
+                            sheet: sheet,
+                            range: viewportRange,
+                            theme: theme,
+                            sx: currentX,
+                            sy: currentY,
+                            w: totalWidth,
+                            h: totalHeight,
+                            layout: layout,
+                          ),
+                        ),
+                      ),
+
+                      // Layer 2: Overlays
+                      Positioned.fill(
+                        child: IgnorePointer(
+                          child: CustomPaint(
+                            painter: _OverlayPainter(
+                              context: OverlayContext(
+                                sheet: sheet,
+                                theme: theme,
+                                activeCell: state.activeCell,
+                                mainSelection: state.mainSelection,
+                                additionalSelections: state.additionalSelections,
+                                scrollX: currentX,
+                                scrollY: currentY,
+                                headerWidth: theme.rowHeaderWidth,
+                                headerHeight: theme.columnHeaderHeight,
+                                layout: layout,
+                                searchQuery: state.searchQuery,
+                              ),
+                              manager: _overlayManager,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      // Layer 3: Headers
+                      _buildHeaders(
+                        sheet,
+                        theme,
+                        layout,
+                        currentX,
+                        currentY,
+                        viewportRange,
+                      ),
+
+                      // Layer 4: Editor
+                      if (state.isEditing && state.activeCell != null)
+                        _buildEditorOverlay(
+                          state,
+                          sheet,
+                          layout,
+                          theme,
+                          currentX,
+                          currentY,
+                        ),
+
+                      // Layer 5: Scrollbars
+                      _buildScrollbars(sheet, layout, theme),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  MouseCursor _getCursor() {
+    if (_interactionState.hoveredZone != null) {
+      return _interactionState.hoveredZone!.direction == ResizeDirection.horizontal
+          ? SystemMouseCursors.resizeLeftRight
+          : SystemMouseCursors.resizeUpDown;
+    }
+    return MouseCursor.defer;
+  }
+
+  void _handleGlobalHover(
+    PointerHoverEvent event,
+    LayoutEngine layout,
+    Sheet sheet,
+    SheetifyThemeData theme,
+  ) {
+    final x = event.localPosition.dx;
+    final y = event.localPosition.dy;
+
+    if (y < theme.columnHeaderHeight && x > theme.rowHeaderWidth) {
+      _detectColumnResizeZone(x - theme.rowHeaderWidth, layout, sheet, theme);
+    } else {
+      if (_interactionState.hoveredZone != null) {
+        setState(
+          () => _interactionState = _interactionState.copyWith(clearHover: true),
+        );
+      }
+    }
+  }
+
+  void _detectColumnResizeZone(double x, LayoutEngine layout, Sheet sheet, SheetifyThemeData theme) {
+    const threshold = 4.0;
+    final scrollX = _scrollX;
+
+    final colIndex = layout.getColumnIndex(x + scrollX, sheet.columnCount);
+    final colOffset = layout.getColumnOffset(colIndex + 1, sheet.columnCount) - scrollX;
+
+    if ((x - colOffset).abs() < threshold) {
+      setState(() {
+        _interactionState = _interactionState.copyWith(
+          hoveredZone: ResizeZone(
+            index: colIndex,
+            direction: ResizeDirection.horizontal,
+            hitRect: Rect.fromLTWH(
+              colOffset - threshold,
+              0,
+              threshold * 2,
+              theme.columnHeaderHeight,
+            ),
+          ),
+        );
+      });
+    } else if (_interactionState.hoveredZone != null) {
+      setState(
+        () => _interactionState = _interactionState.copyWith(clearHover: true),
+      );
+    }
+  }
+
+  Widget _buildGridPart({
+    required Sheet sheet,
+    required ViewportRange range,
+    required SheetifyThemeData theme,
+    required double sx,
+    required double sy,
+    required double w,
+    required double h,
+    required LayoutEngine layout,
+  }) {
+    return RepaintBoundary(
+      child: CustomPaint(
+        painter: GridPainter(
+          sheet: sheet,
+          viewportRange: range,
+          theme: theme,
+          scrollX: sx,
+          scrollY: sy,
+          textPainterCache: _textPainterCache,
+          layout: layout,
+        ),
+      ),
+    );
+  }
+
+  void _handleGesture(
+    Offset localPosition,
+    LayoutEngine layout,
+    SheetifyThemeData theme, {
+    bool isDoubleTap = false,
+  }) {
+    final state = ref.read(workbookProvider);
+    final sheet = state.workbook.activeSheet;
+
+    final double gridX = localPosition.dx - theme.rowHeaderWidth;
+    final double gridY = localPosition.dy - theme.columnHeaderHeight;
+
+    final notifier = ref.read(workbookProvider.notifier);
+
+    if (gridX >= 0 && gridY >= 0) {
+      final double adjustedX = gridX + _scrollX;
+      final double adjustedY = gridY + _scrollY;
+
+      final col = layout.getColumnIndex(adjustedX, sheet.columnCount);
+      final row = layout.getRowIndex(adjustedY, sheet.rowCount);
+
+      if (isDoubleTap) {
+        notifier.selectCell(row, col);
+        notifier.setEditing(true);
+      } else {
+        notifier.selectCell(row, col);
+      }
+    }
+  }
+
+  Widget _buildHeaders(
+    Sheet sheet,
+    SheetifyThemeData theme,
+    LayoutEngine layout,
+    double scrollX,
+    double scrollY,
+    ViewportRange range,
+  ) {
+    return Stack(
+      children: [
+        // Column Headers
+        Positioned(
+          left: theme.rowHeaderWidth,
+          top: 0,
+          right: 0,
+          height: theme.columnHeaderHeight,
+          child: ClipRect(
+            child: CustomPaint(
+              painter: _HeaderPainter(
+                sheet: sheet,
+                theme: theme,
+                layout: layout,
+                scroll: scrollX,
+                axis: Axis.horizontal,
+                range: range,
+              ),
+            ),
+          ),
+        ),
+
+        // Row Headers
+        Positioned(
+          left: 0,
+          top: theme.columnHeaderHeight,
+          bottom: 0,
+          width: theme.rowHeaderWidth,
+          child: ClipRect(
+            child: CustomPaint(
+              painter: _HeaderPainter(
+                sheet: sheet,
+                theme: theme,
+                layout: layout,
+                scroll: scrollY,
+                axis: Axis.vertical,
+                range: range,
+              ),
+            ),
+          ),
+        ),
+
+        // Top-Left Corner
+        Positioned(
+          left: 0,
+          top: 0,
+          width: theme.rowHeaderWidth,
+          height: theme.columnHeaderHeight,
+          child: Container(
+            decoration: BoxDecoration(
+              color: theme.headerBackgroundColor,
+              border: Border.all(color: theme.gridLineColor, width: SheetifyDimensions.gridStrokeWidth),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildEditorOverlay(
+    WorkbookState state,
+    Sheet sheet,
+    LayoutEngine layout,
+    SheetifyThemeData theme,
+    double scrollX,
+    double scrollY,
+  ) {
+    final rect = PositionResolver.getCellRect(
+      state.activeCell!.row,
+      state.activeCell!.column,
+      sheet,
+      scrollX,
+      scrollY,
+      theme.rowHeaderWidth,
+      theme.columnHeaderHeight,
+      layout,
+    );
+
+    return Positioned(
+      left: rect.left,
+      top: rect.top,
+      width: rect.width,
+      child: CellEditorOverlay(
+        onCancel: () => ref.read(workbookProvider.notifier).cancelEdit(),
+        onCommit: (val) => ref.read(workbookProvider.notifier).commitEdit(val),
+      ),
+    );
+  }
+
+  Widget _buildScrollbars(Sheet sheet, LayoutEngine layout, SheetifyThemeData theme) {
+    return Stack(
+      children: [
+        Positioned(
+          right: 0,
+          top: theme.columnHeaderHeight,
+          bottom: 0,
+          child: SizedBox(
+            width: 12,
+            child: RawScrollbar(
+              controller: _verticalController,
+              thumbVisibility: true,
+              thickness: 8,
+              radius: const Radius.circular(SheetifyDimensions.cornerRadiusSmall),
+              child: SingleChildScrollView(
+                controller: _verticalController,
+                child: SizedBox(height: layout.getTotalHeight(sheet.rowCount)),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          left: theme.rowHeaderWidth,
+          right: 0,
+          bottom: 0,
+          child: SizedBox(
+            height: 12,
+            child: RawScrollbar(
+              controller: _horizontalController,
+              thumbVisibility: true,
+              thickness: 8,
+              radius: const Radius.circular(SheetifyDimensions.cornerRadiusSmall),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                controller: _horizontalController,
+                child: SizedBox(width: layout.getTotalWidth(sheet.columnCount)),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _HeaderPainter extends CustomPainter {
+  final Sheet sheet;
+  final SheetifyThemeData theme;
+  final LayoutEngine layout;
+  final double scroll;
+  final Axis axis;
+  final ViewportRange range;
+
+  _HeaderPainter({
+    required this.sheet,
+    required this.theme,
+    required this.layout,
+    required this.scroll,
+    required this.axis,
+    required this.range,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = theme.gridLineColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = SheetifyDimensions.gridStrokeWidth;
+
+    final bgPaint = Paint()..color = theme.headerBackgroundColor;
+
+    if (axis == Axis.horizontal) {
+      for (int c = range.startColumn; c <= range.endColumn; c++) {
+        final x = layout.getColumnOffset(c, sheet.columnCount) - scroll;
+        final w = layout.getColumnWidth(c, sheet);
+        final rect = Rect.fromLTWH(x, 0, w, size.height);
+
+        canvas.drawRect(rect, bgPaint);
+        canvas.drawRect(rect, paint);
+
+        final text = GridUtils.getColumnLabel(c);
+        _drawText(canvas, text, rect);
+      }
+    } else {
+      for (int r = range.startRow; r <= range.endRow; r++) {
+        final y = layout.getRowOffset(r, sheet) - scroll;
+        final h = layout.getRowHeight(r, sheet);
+        final rect = Rect.fromLTWH(0, y, size.width, h);
+
+        canvas.drawRect(rect, bgPaint);
+        canvas.drawRect(rect, paint);
+
+        final text = '${r + 1}';
+        _drawText(canvas, text, rect);
+      }
+    }
+  }
+
+  void _drawText(Canvas canvas, String text, Rect rect) {
+    final tp = TextPainter(
+      text: TextSpan(text: text, style: theme.gridHeaderTextStyle),
+      textDirection: TextDirection.ltr,
+      textAlign: TextAlign.center,
+    )..layout();
+
+    tp.paint(canvas, rect.center - Offset(tp.width / 2, tp.height / 2));
+  }
+
+  @override
+  bool shouldRepaint(covariant _HeaderPainter oldDelegate) {
+    return oldDelegate.scroll != scroll || oldDelegate.range != range || oldDelegate.sheet != sheet || oldDelegate.theme != theme;
+  }
+}
+
+class _OverlayPainter extends CustomPainter {
+  final OverlayContext context;
+  final OverlayManager manager;
+
+  _OverlayPainter({required this.context, required this.manager});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    manager.paint(canvas, size, context);
+  }
+
+  @override
+  bool shouldRepaint(covariant _OverlayPainter oldDelegate) {
+    return oldDelegate.context != context;
+  }
+}
