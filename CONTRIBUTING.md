@@ -10,7 +10,7 @@ This project and everyone participating in it is governed by the [Sheetifye Code
 
 ### Reporting Bugs
 
-- **Check the FAQ**: See if your issue is already addressed in the [Troubleshooting Guide](docs/troubleshooting.md).
+- **Check the FAQ**: See if your issue is already addressed in the [Troubleshooting Guide](doc/troubleshooting.md).
 - **Search Existing Issues**: Before opening a new issue, search to see if someone else has already reported it.
 - **Provide Details**: Include as much information as possible:
     - Flutter version (`flutter doctor`)
@@ -32,7 +32,7 @@ This project and everyone participating in it is governed by the [Sheetifye Code
 3. **If you've changed APIs**, update the documentation.
 4. **Ensure the test suite passes**.
 5. **Make sure your code lints** (`flutter analyze`).
-6. **Follow the Clean Architecture**: Refer to the [Architecture Guide](docs/architecture.md).
+6. **Follow the Clean Architecture**: Refer to the [Architecture Guide](doc/architecture.md).
 
 ## Style Guide
 

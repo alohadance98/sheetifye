@@ -42,7 +42,7 @@
   </tr>
 </table>
 
-[**📖 Docs**](docs/getting_started.md) &nbsp;·&nbsp; [**💡 Examples**](example/) &nbsp;·&nbsp; [**📋 Changelog**](CHANGELOG.md) &nbsp;·&nbsp; [**🐛 Report Bug**](https://github.com/vikaspoute/sheetifye/issues)
+[**📖 Docs**](doc/getting_started.md) &nbsp;·&nbsp; [**💡 Examples**](example/) &nbsp;·&nbsp; [**📋 Changelog**](CHANGELOG.md) &nbsp;·&nbsp; [**🐛 Report Bug**](https://github.com/vikaspoute/sheetifye/issues)
 
 </div>
 
