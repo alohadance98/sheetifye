@@ -5,6 +5,13 @@ This project follows [Semantic Versioning](https://semver.org/) and [Keep a Chan
 
 ---
 
+## [1.0.2] — 2026-05-13
+- Improved pub.dev example documentation and source code clarity.
+
+## [1.0.1] — 2026-05-12
+- Rebranded package to Sheetifye and updated all metadata.
+- Standardized documentation layout.
+
 ## [1.0.0] — 2026-05-12 🎉
 
 > **Initial public release.** The foundation is set — fast, native, and cross-platform.

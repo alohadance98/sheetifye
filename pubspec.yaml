@@ -1,6 +1,6 @@
 name: sheetifye
 description: "A lightweight virtualized spreadsheet viewer for Flutter with native XLSX support."
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/vikaspoute/sheetifye
 repository: https://github.com/vikaspoute/sheetifye
 issue_tracker: https://github.com/vikaspoute/sheetifye/issues
