@@ -5,7 +5,6 @@ import 'package:sheetify/src/data/adapters/xlsx/xlsx_archive_reader.dart';
 import 'package:sheetify/src/data/adapters/xlsx/xlsx_shared_strings_parser.dart';
 import 'package:sheetify/src/data/adapters/xlsx/xlsx_workbook_parser.dart';
 import 'package:sheetify/src/data/adapters/xlsx/xlsx_sheet_parser.dart';
-import 'package:sheetify/src/data/adapters/xlsx/xlsx_styles_parser.dart';
 
 class XlsxAdapter {
   /// Orchestrates the parsing of an XLSX file into a Sheetify Workbook.
@@ -20,9 +19,6 @@ class XlsxAdapter {
 
     // 2. Workbook Structure & Sheets
     final sheetMetas = XlsxWorkbookParser.parse(reader);
-
-    // 3. Styles (Fonts, Fills)
-    final styleTable = XlsxStylesParser.parse(reader);
 
     final List<entities.Sheet> sheets = [];
 

@@ -15,11 +15,11 @@ class SelectionOverlayLayer implements OverlayLayer {
     if (context.mainSelection == null) return;
 
     final fillPaint = Paint()
-      ..color = context.theme.selectionColor.withOpacity(0.3)
+      ..color = context.theme.selectionColor.withValues(alpha: 0.3)
       ..style = PaintingStyle.fill;
 
     final borderPaint = Paint()
-      ..color = context.theme.selectionBorderColor.withOpacity(0.5)
+      ..color = context.theme.selectionBorderColor.withValues(alpha: 0.5)
       ..strokeWidth = SheetifyDimensions.gridStrokeWidth
       ..style = PaintingStyle.stroke;
 

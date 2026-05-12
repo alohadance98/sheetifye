@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:collection';
 
 class MetricsManager {
@@ -82,8 +81,6 @@ class MetricsManager {
     if (offset <= 0) return 0;
 
     // Initial estimate based on default size
-    int estimatedIndex = (offset / defaultSize).floor();
-
     // Refine based on overrides.
     // Since cumulative diffs change the 'landscape', we need a more robust search.
     // O(log Overrides) approach:

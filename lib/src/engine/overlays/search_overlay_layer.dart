@@ -16,11 +16,11 @@ class SearchOverlayLayer implements OverlayLayer {
     if (query == null || query.isEmpty) return;
 
     final highlightPaint = Paint()
-      ..color = context.theme.searchHighlightColor.withOpacity(0.4)
+      ..color = context.theme.searchHighlightColor.withValues(alpha: 0.4)
       ..style = PaintingStyle.fill;
 
     final borderPaint = Paint()
-      ..color = context.theme.searchHighlightBorderColor.withOpacity(0.5)
+      ..color = context.theme.searchHighlightBorderColor.withValues(alpha: 0.5)
       ..style = PaintingStyle.stroke
       ..strokeWidth = SheetifyDimensions.gridStrokeWidth;
 

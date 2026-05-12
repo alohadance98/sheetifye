@@ -63,7 +63,7 @@ class GalleryScreen extends StatelessWidget {
                 'restaurant_sales.xlsx',
                 theme: SheetifyThemeData.light().copyWith(
                   primaryColor: Colors.deepPurple,
-                  selectionColor: Colors.deepPurple.withOpacity(0.1),
+                  selectionColor: Colors.deepPurple.withValues(alpha: 0.1),
                   headerBackgroundColor: Colors.deepPurple.shade50,
                 ),
               ),
@@ -126,8 +126,10 @@ class GalleryScreen extends StatelessWidget {
         leading: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color:
-                Theme.of(context).colorScheme.primaryContainer.withOpacity(0.4),
+            color: Theme.of(context)
+                .colorScheme
+                .primaryContainer
+                .withValues(alpha: 0.4),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(icon, color: Theme.of(context).colorScheme.primary),

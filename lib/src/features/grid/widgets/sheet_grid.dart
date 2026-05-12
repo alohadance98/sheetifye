@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sheetify/src/core/theme/sheetify_theme.dart';
 import 'package:sheetify/src/core/theme/sheetify_theme_data.dart';
 import 'package:sheetify/src/core/theme/sheetify_dimensions.dart';
-import 'package:sheetify/src/core/theme/sheetify_spacing_tokens.dart';
 import 'package:sheetify/src/features/workbook/state/workbook_state.dart';
 import 'package:sheetify/src/engine/render/grid_painter.dart';
 import 'package:sheetify/src/engine/scrolling/scrolling_engine.dart';
@@ -40,7 +39,7 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
 
   double _scrollX = 0;
   double _scrollY = 0;
-  bool _isSyncing = false;
+  final bool _isSyncing = false;
 
   @override
   void initState() {

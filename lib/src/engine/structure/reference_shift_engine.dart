@@ -22,7 +22,7 @@ class ReferenceShiftEngine {
         colAt: colAt,
         colCount: colCount ?? 0,
       );
-      return '=' + ast.accept(visitor);
+      return '=${ast.accept(visitor)}';
     } catch (e) {
       return formula; // Return original if parsing fails during shift
     }

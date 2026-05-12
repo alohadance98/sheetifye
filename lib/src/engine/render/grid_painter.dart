@@ -108,7 +108,7 @@ class GridPainter extends CustomPainter {
         }
 
         if (cell != null && cell.value != null) {
-          final horizontalPadding = SheetifySpacingTokens.small;
+          const horizontalPadding = SheetifySpacingTokens.small;
           final painter = textPainterCache.getOrCreate(
             text: cell.value.toString(),
             style: theme.gridCellTextStyle,

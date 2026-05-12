@@ -79,7 +79,8 @@ class _SheetifyToolbarState extends ConsumerState<SheetifyToolbar> {
                 decoration: InputDecoration(
                   hintText: 'Search...',
                   hintStyle: theme.toolbarTextStyle.copyWith(
-                    color: theme.toolbarTextStyle.color?.withOpacity(0.7),
+                    color:
+                        theme.toolbarTextStyle.color?.withValues(alpha: 0.7),
                   ),
                   border: InputBorder.none,
                 ),
@@ -100,10 +101,10 @@ class _SheetifyToolbarState extends ConsumerState<SheetifyToolbar> {
           ] else ...[
             Icon(
               Icons.table_chart,
-              color: theme.toolbarTextStyle.color?.withOpacity(0.9),
+              color: theme.toolbarTextStyle.color?.withValues(alpha: 0.9),
               size: SheetifyDimensions.iconSizeMedium,
             ),
-            SizedBox(width: SheetifySpacingTokens.medium),
+            const SizedBox(width: SheetifySpacingTokens.medium),
             Expanded(
               child: Text(
                 state.workbook.name,

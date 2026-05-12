@@ -169,8 +169,8 @@ class SheetifyThemeData extends ThemeExtension<SheetifyThemeData> {
       selectionBorderColor: SheetifyColorTokens.selectionBorder,
       searchHighlightColor: SheetifyColorTokens.searchHighlight,
       searchHighlightBorderColor: SheetifyColorTokens.searchHighlightBorder,
-      formulaBarBackgroundColor: SheetifyColorTokens.primaryLight.withOpacity(
-        0.3,
+      formulaBarBackgroundColor: SheetifyColorTokens.primaryLight.withValues(
+        alpha: 0.3,
       ),
       formulaBarForegroundColor: SheetifyColorTokens.primaryDark,
       cellTextColor: SheetifyColorTokens.onSurface,
@@ -217,10 +217,10 @@ class SheetifyThemeData extends ThemeExtension<SheetifyThemeData> {
       shadowColor: Colors.black54,
       headerBackgroundColor: SheetifyColorTokens.headerBackgroundDark,
       headerForegroundColor: Colors.white70,
-      selectionColor: SheetifyColorTokens.primary.withOpacity(0.2),
+      selectionColor: SheetifyColorTokens.primary.withValues(alpha: 0.2),
       selectionBorderColor: SheetifyColorTokens.primaryLight,
-      searchHighlightColor: SheetifyColorTokens.searchHighlight.withOpacity(
-        0.4,
+      searchHighlightColor: SheetifyColorTokens.searchHighlight.withValues(
+        alpha: 0.4,
       ),
       searchHighlightBorderColor: SheetifyColorTokens.searchHighlightBorder,
       formulaBarBackgroundColor: const Color(0xFF2C2C2C),

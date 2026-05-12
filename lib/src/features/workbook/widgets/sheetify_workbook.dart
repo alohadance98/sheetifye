@@ -7,8 +7,6 @@ import 'package:sheetify/src/features/tabs/widgets/sheet_tabs.dart';
 import 'package:sheetify/src/features/workbook/state/workbook_state.dart';
 import 'package:sheetify/src/features/toolbar/widgets/sheetify_toolbar.dart';
 import 'package:sheetify/src/core/theme/sheetify_theme.dart';
-import 'package:sheetify/src/core/theme/sheetify_spacing_tokens.dart';
-import 'package:sheetify/src/core/theme/sheetify_dimensions.dart';
 
 class SheetifyWorkbook extends ConsumerStatefulWidget {
   final bool readOnly;
@@ -79,41 +77,12 @@ class _SheetifyWorkbookState extends ConsumerState<SheetifyWorkbook> {
           child: Column(
             children: [
               SheetifyToolbar(controller: controller),
-              // if (state.readOnly)
-              //   _buildViewOnlyIndicator(context),
               const FormulaBar(),
               const Expanded(child: SheetGrid()),
               const SheetTabs(),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildViewOnlyIndicator(BuildContext context) {
-    final theme = SheetifyTheme.of(context);
-    return Container(
-      width: double.infinity,
-      color: theme.statusIndicatorBackgroundColor,
-      padding: SheetifySpacingTokens.statusPadding,
-      child: Row(
-        children: [
-          Icon(
-            Icons.visibility_outlined,
-            size: SheetifyDimensions.iconSizeSmall,
-            color: theme.statusIndicatorForegroundColor,
-          ),
-          const SizedBox(width: SheetifySpacingTokens.small),
-          Text('VIEW ONLY', style: theme.statusLabelTextStyle),
-          const Spacer(),
-          Text(
-            'Changes cannot be saved',
-            style: theme.statusBodyTextStyle.copyWith(
-              color: theme.statusIndicatorForegroundColor.withOpacity(0.8),
-            ),
-          ),
-        ],
       ),
     );
   }

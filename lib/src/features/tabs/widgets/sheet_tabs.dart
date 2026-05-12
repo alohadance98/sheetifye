@@ -112,13 +112,13 @@ class SheetTabs extends ConsumerWidget {
         ),
       ),
       items: [
-        PopupMenuItem(
+        const PopupMenuItem(
           value: 'rename',
           child: Row(
             children: [
               Icon(Icons.edit, size: SheetifyDimensions.iconSizeSmall),
-              const SizedBox(width: SheetifySpacingTokens.medium),
-              const Text('Rename'),
+              SizedBox(width: SheetifySpacingTokens.medium),
+              Text('Rename'),
             ],
           ),
         ),
@@ -139,6 +139,7 @@ class SheetTabs extends ConsumerWidget {
           ),
       ],
     ).then((value) {
+      if (!context.mounted) return;
       if (value == 'rename') {
         _showRenameDialog(context, ref, index, currentName);
       } else if (value == 'delete') {
@@ -153,7 +154,6 @@ class SheetTabs extends ConsumerWidget {
     int index,
     String currentName,
   ) {
-    final theme = SheetifyTheme.of(context);
     final controller = TextEditingController(text: currentName);
     showDialog(
       context: context,

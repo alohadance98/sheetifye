@@ -123,7 +123,7 @@ class SheetifyShimmer extends StatelessWidget {
                                 width: double.infinity,
                                 height: 12,
                                 decoration: BoxDecoration(
-                                  color: baseColor.withOpacity(0.5),
+                                  color: baseColor.withValues(alpha: 0.5),
                                   borderRadius: BorderRadius.circular(2),
                                 ),
                               )
@@ -157,7 +157,7 @@ class SheetifyShimmer extends StatelessWidget {
                   width: 80,
                   height: 24,
                   decoration: BoxDecoration(
-                    color: baseColor.withOpacity(0.5),
+                    color: baseColor.withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(
                       SheetifyDimensions.cornerRadiusSmall,
                     ),

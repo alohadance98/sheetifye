@@ -41,8 +41,9 @@ class XlsxSheetParser {
           final raw = vElem.innerText;
           if (type == 's') {
             final idx = int.tryParse(raw);
-            if (idx != null && idx < sharedStrings.length)
+            if (idx != null && idx < sharedStrings.length) {
               value = sharedStrings[idx];
+            }
           } else if (type == 'b') {
             value = raw == '1';
           } else {
