@@ -35,5 +35,6 @@ class FrameProfiler {
     _totalFrameTime += durationMs;
   }
 
-  double get averageFrameTime => _frameCount == 0 ? 0 : _totalFrameTime / _frameCount;
+  double get averageFrameTime =>
+      _frameCount == 0 ? 0 : _totalFrameTime / _frameCount;
 }

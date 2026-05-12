@@ -40,8 +40,9 @@ class LayoutInteractionState {
   }) {
     return LayoutInteractionState(
       hoveredZone: clearHover ? null : (hoveredZone ?? this.hoveredZone),
-      activeResizeZone:
-          clearActive ? null : (activeResizeZone ?? this.activeResizeZone),
+      activeResizeZone: clearActive
+          ? null
+          : (activeResizeZone ?? this.activeResizeZone),
       dragStartOffset: dragStartOffset ?? this.dragStartOffset,
       initialSize: initialSize ?? this.initialSize,
       lastDragPosition: lastDragPosition ?? this.lastDragPosition,

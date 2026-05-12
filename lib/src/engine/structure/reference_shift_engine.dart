@@ -4,7 +4,13 @@ import 'package:sheetify/src/engine/formula/tokenizer.dart';
 import 'package:sheetify/src/engine/formula/parser.dart';
 
 class ReferenceShiftEngine {
-  String shiftFormula(String formula, {int? rowAt, int? rowCount, int? colAt, int? colCount}) {
+  String shiftFormula(
+    String formula, {
+    int? rowAt,
+    int? rowCount,
+    int? colAt,
+    int? colCount,
+  }) {
     if (!formula.startsWith('=')) return formula;
 
     try {

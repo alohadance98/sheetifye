@@ -22,10 +22,7 @@ class XlsxWorkbookParser {
       final name = sheet.getAttribute('name');
       final rId = sheet.getAttribute('r:id');
       if (name != null && rId != null && rels.containsKey(rId)) {
-        sheets.add(XlsxSheetMetadata(
-          name: name,
-          path: 'xl/${rels[rId]}',
-        ));
+        sheets.add(XlsxSheetMetadata(name: name, path: 'xl/${rels[rId]}'));
       }
     }
     return sheets;

@@ -20,7 +20,9 @@ class FunctionRegistry {
       double sum = 0;
       for (var arg in args) {
         if (arg is Iterable) {
-          for (var v in arg) { if (v is num) sum += v; }
+          for (var v in arg) {
+            if (v is num) sum += v;
+          }
         } else if (arg is num) {
           sum += arg;
         }
@@ -31,7 +33,8 @@ class FunctionRegistry {
     register('IF', (args) {
       if (args.length < 3) return '#VALUE!';
       final condition = args[0];
-      final isTrue = (condition == true || (condition is num && condition != 0));
+      final isTrue =
+          (condition == true || (condition is num && condition != 0));
       return isTrue ? args[1] : args[2];
     });
   }

@@ -34,10 +34,7 @@ class AssetSheetifySource extends SheetifySource {
   @override
   Future<({Uint8List bytes, String? name})> loadBytes() async {
     final data = await (bundle ?? rootBundle).load(assetName);
-    return (
-      bytes: data.buffer.asUint8List(),
-      name: assetName.split('/').last,
-    );
+    return (bytes: data.buffer.asUint8List(), name: assetName.split('/').last);
   }
 
   @override
@@ -55,10 +52,7 @@ class FileSheetifySource extends SheetifySource {
   @override
   Future<({Uint8List bytes, String? name})> loadBytes() async {
     final bytes = await file.readAsBytes();
-    return (
-      bytes: bytes,
-      name: file.path.split(Platform.pathSeparator).last,
-    );
+    return (bytes: bytes, name: file.path.split(Platform.pathSeparator).last);
   }
 
   @override
@@ -112,10 +106,7 @@ class NetworkSheetifySource extends SheetifySource {
         }
       }
 
-      return (
-        bytes: response.bodyBytes,
-        name: name ?? detectedName,
-      );
+      return (bytes: response.bodyBytes, name: name ?? detectedName);
     } else {
       throw Exception(
         'Failed to load sheet from network: ${response.statusCode}',

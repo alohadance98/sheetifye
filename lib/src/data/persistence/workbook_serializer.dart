@@ -21,12 +21,16 @@ class WorkbookSerializer {
       'frozenRows': sheet.frozenRows,
       'frozenColumns': sheet.frozenColumns,
       'cells': sheet.cells.map((k, v) => MapEntry(k, _serializeCell(v))),
-      'mergedRegions': sheet.mergedCells.regions.map((r) => {
-        'startRow': r.range.minRow,
-        'endRow': r.range.maxRow,
-        'startCol': r.range.minCol,
-        'endCol': r.range.maxCol,
-      }).toList(),
+      'mergedRegions': sheet.mergedCells.regions
+          .map(
+            (r) => {
+              'startRow': r.range.minRow,
+              'endRow': r.range.maxRow,
+              'startCol': r.range.minCol,
+              'endCol': r.range.maxCol,
+            },
+          )
+          .toList(),
     };
   }
 

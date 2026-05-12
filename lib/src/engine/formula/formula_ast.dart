@@ -2,12 +2,18 @@ import 'package:sheetify/src/core/utils/grid_utils.dart';
 
 enum FormulaTokenType {
   equals,
-  plus, minus, star, slash,
-  leftParen, rightParen,
-  comma, colon,
-  number, string,
+  plus,
+  minus,
+  star,
+  slash,
+  leftParen,
+  rightParen,
+  comma,
+  colon,
+  number,
+  string,
   reference, // A1, $A$1
-  function,  // SUM, IF
+  function, // SUM, IF
   eof,
 }
 

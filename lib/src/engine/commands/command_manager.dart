@@ -16,7 +16,8 @@ class CommandManager {
   }
 
   void commitTransaction(Workbook workbook) {
-    if (_currentTransaction != null && _currentTransaction!.commands.isNotEmpty) {
+    if (_currentTransaction != null &&
+        _currentTransaction!.commands.isNotEmpty) {
       _executeAndAdd(_currentTransaction!, workbook);
     }
     _currentTransaction = null;

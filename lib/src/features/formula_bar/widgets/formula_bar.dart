@@ -14,10 +14,13 @@ class FormulaBar extends ConsumerWidget {
     final theme = SheetifyTheme.of(context);
     final activeCell = state.activeCell;
     final cellValue = activeCell != null
-        ? state.workbook.activeSheet
-                .cells['${activeCell.row},${activeCell.column}']?.value
-                ?.toString() ??
-            ''
+        ? state
+                  .workbook
+                  .activeSheet
+                  .cells['${activeCell.row},${activeCell.column}']
+                  ?.value
+                  ?.toString() ??
+              ''
         : '';
 
     return Container(
@@ -37,7 +40,9 @@ class FormulaBar extends ConsumerWidget {
             ),
             decoration: BoxDecoration(
               color: theme.primaryColor,
-              borderRadius: BorderRadius.circular(SheetifyDimensions.cornerRadiusSmall),
+              borderRadius: BorderRadius.circular(
+                SheetifyDimensions.cornerRadiusSmall,
+              ),
             ),
             child: Text(
               activeCell?.toA1() ?? '',

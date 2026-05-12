@@ -6,7 +6,8 @@ class XlsxArchiveReader {
   final Archive _archive;
   final Map<String, XmlDocument> _xmlCache = {};
 
-  XlsxArchiveReader(Uint8List bytes) : _archive = ZipDecoder().decodeBytes(bytes);
+  XlsxArchiveReader(Uint8List bytes)
+    : _archive = ZipDecoder().decodeBytes(bytes);
 
   XmlDocument? getXml(String path) {
     if (_xmlCache.containsKey(path)) return _xmlCache[path];
@@ -26,7 +27,9 @@ class XlsxArchiveReader {
   List<String> getSheetPaths() {
     // Basic detection of worksheet files in xl/worksheets/
     return _archive.files
-        .where((f) => f.name.startsWith('xl/worksheets/') && f.name.endsWith('.xml'))
+        .where(
+          (f) => f.name.startsWith('xl/worksheets/') && f.name.endsWith('.xml'),
+        )
         .map((f) => f.name)
         .toList();
   }

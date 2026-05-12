@@ -25,9 +25,12 @@ class CollaborativeOperation {
 }
 
 class OperationTransformer {
-  CollaborativeOperation transform(CollaborativeOperation op, CollaborativeOperation concurrentOp) {
+  CollaborativeOperation transform(
+    CollaborativeOperation op,
+    CollaborativeOperation concurrentOp,
+  ) {
     // Implement OT logic to resolve conflicts
     // e.g., if both insert at same row, shift indexes
-    return op; 
+    return op;
   }
 }

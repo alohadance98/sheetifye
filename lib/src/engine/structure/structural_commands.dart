@@ -17,19 +17,23 @@ class InsertRowCommand extends SpreadsheetCommand {
   void execute(Workbook workbook) {
     final sheet = workbook.activeSheet;
     final newCells = <String, Cell>{};
-    
+
     // Shift existing cells
     sheet.cells.forEach((key, cell) {
       int r = cell.row;
       int c = cell.column;
-      
+
       if (r >= index) {
         r += count;
       }
 
       String? shiftedInput = cell.rawInput;
       if (shiftedInput != null && shiftedInput.startsWith('=')) {
-        shiftedInput = _shiftEngine.shiftFormula(shiftedInput, rowAt: index, rowCount: count);
+        shiftedInput = _shiftEngine.shiftFormula(
+          shiftedInput,
+          rowAt: index,
+          rowCount: count,
+        );
       }
 
       final newKey = '$r,$c';
@@ -44,7 +48,7 @@ class InsertRowCommand extends SpreadsheetCommand {
     // We should also update Sheet.rowCount but Sheet is immutable in its properties mostly
     // For now we focus on the cell map mutation
     // In a real engine, we'd also shift merged regions and row heights.
-    
+
     workbook.sheets[workbook.activeSheetIndex] = sheet.copyWith(
       cells: newCells,
       rowCount: sheet.rowCount + count,
@@ -87,7 +91,11 @@ class DeleteRowCommand extends SpreadsheetCommand {
 
       String? shiftedInput = cell.rawInput;
       if (shiftedInput != null && shiftedInput.startsWith('=')) {
-        shiftedInput = _shiftEngine.shiftFormula(shiftedInput, rowAt: index, rowCount: -count);
+        shiftedInput = _shiftEngine.shiftFormula(
+          shiftedInput,
+          rowAt: index,
+          rowCount: -count,
+        );
       }
 
       final newKey = '$r,$c';

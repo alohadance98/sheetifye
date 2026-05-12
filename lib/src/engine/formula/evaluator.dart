@@ -3,12 +3,10 @@ import 'package:sheetify/src/domain/entities/workbook.dart';
 
 class FormulaEvaluator implements ASTVisitor<dynamic> {
   final Sheet sheet;
-  final Map<String, dynamic> Function(String name, List<dynamic> args) functionResolver;
+  final Map<String, dynamic> Function(String name, List<dynamic> args)
+  functionResolver;
 
-  FormulaEvaluator({
-    required this.sheet,
-    required this.functionResolver,
-  });
+  FormulaEvaluator({required this.sheet, required this.functionResolver});
 
   dynamic evaluate(ASTNode node) => node.accept(this);
 
@@ -40,10 +38,13 @@ class FormulaEvaluator implements ASTVisitor<dynamic> {
 
     if (left is num && right is num) {
       switch (node.operator) {
-        case '+': return left + right;
-        case '-': return left - right;
-        case '*': return left * right;
-        case '/': 
+        case '+':
+          return left + right;
+        case '-':
+          return left - right;
+        case '*':
+          return left * right;
+        case '/':
           if (right == 0) return '#DIV/0!';
           return left / right;
       }

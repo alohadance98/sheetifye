@@ -24,7 +24,7 @@ class LayoutEngine {
     // For now, if no sorting, visualRow == logicalRow.
     // If sorting exists, we need to map visual to logical.
     // But offset calculation must handle the cumulative heights.
-    
+
     // Simplification: use MetricsManager which handles sparse cumulative logic.
     return rows.getOffset(visualRow, sheet.rowCount) * _zoomScale;
   }
@@ -40,7 +40,7 @@ class LayoutEngine {
   // Optimized Column Helpers (O(log Overrides))
   double getColumnOffset(int index, int totalCols) =>
       columns.getOffset(index, totalCols) * _zoomScale;
-      
+
   double getColumnWidth(int visualCol, Sheet sheet) {
     return columns.getSize(visualCol) * _zoomScale;
   }
@@ -50,7 +50,7 @@ class LayoutEngine {
 
   double getTotalWidth(int totalCols) =>
       columns.getTotalSize(totalCols) * _zoomScale;
-      
+
   double getTotalHeight(int totalRows) =>
       rows.getTotalSize(totalRows) * _zoomScale;
 }

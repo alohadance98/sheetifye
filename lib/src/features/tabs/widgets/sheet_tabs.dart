@@ -36,14 +36,21 @@ class SheetTabs extends ConsumerWidget {
                     ref.read(workbookProvider.notifier).switchSheet(index);
                   },
                   onSecondaryTapDown: (details) => _showSheetOptions(
-                    context, ref, index, sheet.name, sheets.length > 1, details.globalPosition,
+                    context,
+                    ref,
+                    index,
+                    sheet.name,
+                    sheets.length > 1,
+                    details.globalPosition,
                   ),
                   child: Container(
                     padding: SheetifySpacingTokens.tabPadding,
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          color: isActive ? theme.primaryColor : Colors.transparent,
+                          color: isActive
+                              ? theme.primaryColor
+                              : Colors.transparent,
                           width: 2,
                         ),
                       ),
@@ -54,12 +61,16 @@ class SheetTabs extends ConsumerWidget {
                         Icon(
                           Icons.table_rows_outlined,
                           size: SheetifyDimensions.iconSizeSmall,
-                          color: isActive ? theme.primaryColor : theme.headerForegroundColor,
+                          color: isActive
+                              ? theme.primaryColor
+                              : theme.headerForegroundColor,
                         ),
                         const SizedBox(width: SheetifySpacingTokens.small),
                         Text(
                           sheet.name,
-                          style: isActive ? theme.tabActiveTextStyle : theme.tabInactiveTextStyle,
+                          style: isActive
+                              ? theme.tabActiveTextStyle
+                              : theme.tabInactiveTextStyle,
                         ),
                       ],
                     ),
@@ -81,7 +92,8 @@ class SheetTabs extends ConsumerWidget {
     bool canDelete,
     Offset position,
   ) {
-    final RenderBox? overlay = Overlay.of(context).context.findRenderObject() as RenderBox?;
+    final RenderBox? overlay =
+        Overlay.of(context).context.findRenderObject() as RenderBox?;
     if (overlay == null) return;
 
     final RelativeRect menuPosition = RelativeRect.fromRect(
@@ -95,7 +107,9 @@ class SheetTabs extends ConsumerWidget {
       position: menuPosition,
       elevation: 8,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(SheetifyDimensions.cornerRadiusMedium),
+        borderRadius: BorderRadius.circular(
+          SheetifyDimensions.cornerRadiusMedium,
+        ),
       ),
       items: [
         PopupMenuItem(
@@ -113,7 +127,11 @@ class SheetTabs extends ConsumerWidget {
             value: 'delete',
             child: Row(
               children: [
-                Icon(Icons.delete, size: SheetifyDimensions.iconSizeSmall, color: theme.error),
+                Icon(
+                  Icons.delete,
+                  size: SheetifyDimensions.iconSizeSmall,
+                  color: theme.error,
+                ),
                 const SizedBox(width: SheetifySpacingTokens.medium),
                 Text('Delete', style: TextStyle(color: theme.error)),
               ],
@@ -180,7 +198,9 @@ class SheetTabs extends ConsumerWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Delete Sheet'),
-        content: Text('Are you sure you want to delete "$sheetName"?\nThis action cannot be undone.'),
+        content: Text(
+          'Are you sure you want to delete "$sheetName"?\nThis action cannot be undone.',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),

@@ -18,8 +18,12 @@ class PositionResolver {
     final targetRow = region?.range.minRow ?? row;
     final targetCol = region?.range.minCol ?? col;
 
-    final double left = layout.getColumnOffset(targetCol, sheet.columnCount) + headerWidth - scrollX;
-    final double top = layout.getRowOffset(targetRow, sheet) + headerHeight - scrollY;
+    final double left =
+        layout.getColumnOffset(targetCol, sheet.columnCount) +
+        headerWidth -
+        scrollX;
+    final double top =
+        layout.getRowOffset(targetRow, sheet) + headerHeight - scrollY;
 
     double width = 0;
     double height = 0;

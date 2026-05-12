@@ -21,7 +21,7 @@ class UpdateCellCommand extends SpreadsheetCommand {
   void execute(Workbook workbook) {
     final sheet = workbook.activeSheet;
     _oldCell = sheet.cells['$row,$col'];
-    
+
     sheet.cells['$row,$col'] = Cell(
       id: '$row,$col',
       row: row,
@@ -54,7 +54,7 @@ class UpdateRangeCommand extends SpreadsheetCommand {
     final sheet = workbook.activeSheet;
     newValues.forEach((key, value) {
       _oldCells[key] = sheet.cells[key]!;
-      
+
       final parts = key.split(',');
       final row = int.parse(parts[0]);
       final col = int.parse(parts[1]);

@@ -18,7 +18,9 @@ class XlsxStylesParser {
       return XlsxFont(
         isBold: e.findElements('b').isNotEmpty,
         isItalic: e.findElements('i').isNotEmpty,
-        fontSize: double.tryParse(e.getElement('sz')?.getAttribute('val') ?? '') ?? 11.0,
+        fontSize:
+            double.tryParse(e.getElement('sz')?.getAttribute('val') ?? '') ??
+            11.0,
       );
     }).toList();
   }
@@ -26,9 +28,7 @@ class XlsxStylesParser {
   static List<XlsxFill> _parseFills(XmlDocument xml) {
     return xml.findAllElements('fill').map((e) {
       final fgColor = e.findAllElements('fgColor').firstOrNull;
-      return XlsxFill(
-        colorHex: fgColor?.getAttribute('rgb'),
-      );
+      return XlsxFill(colorHex: fgColor?.getAttribute('rgb'));
     }).toList();
   }
 

@@ -19,7 +19,12 @@ void main() {
 
     test('Should evaluate simple arithmetic formulas', () {
       dynamic result;
-      engine.processCellUpdate('0,0', '=10+20*2', sheet, (addr, val) => result = val);
+      engine.processCellUpdate(
+        '0,0',
+        '=10+20*2',
+        sheet,
+        (addr, val) => result = val,
+      );
       expect(result, 50);
     });
   });

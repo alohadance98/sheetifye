@@ -62,8 +62,12 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
     if (_isSyncing) return;
 
     setState(() {
-      _scrollX = _horizontalController.hasClients ? _horizontalController.offset : 0;
-      _scrollY = _verticalController.hasClients ? _verticalController.offset : 0;
+      _scrollX = _horizontalController.hasClients
+          ? _horizontalController.offset
+          : 0;
+      _scrollY = _verticalController.hasClients
+          ? _verticalController.offset
+          : 0;
     });
   }
 
@@ -116,11 +120,17 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
             const SingleActivator(LogicalKeyboardKey.keyC, meta: true): () =>
                 ref.read(workbookProvider.notifier).copy(),
             if (!state.readOnly) ...{
-              const SingleActivator(LogicalKeyboardKey.keyV, control: true): () =>
+              const SingleActivator(
+                LogicalKeyboardKey.keyV,
+                control: true,
+              ): () =>
                   ref.read(workbookProvider.notifier).paste(),
               const SingleActivator(LogicalKeyboardKey.keyV, meta: true): () =>
                   ref.read(workbookProvider.notifier).paste(),
-              const SingleActivator(LogicalKeyboardKey.keyX, control: true): () =>
+              const SingleActivator(
+                LogicalKeyboardKey.keyX,
+                control: true,
+              ): () =>
                   ref.read(workbookProvider.notifier).cut(),
               const SingleActivator(LogicalKeyboardKey.keyX, meta: true): () =>
                   ref.read(workbookProvider.notifier).cut(),
@@ -135,13 +145,23 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
                   final metrics = notification.metrics;
                   if (metrics.axis == Axis.vertical) {
                     if (metrics.pixels > metrics.maxScrollExtent - 500) {
-                      final currentRow = layout.getRowIndex(metrics.pixels, sheet.rowCount);
-                      ref.read(workbookProvider.notifier).expandIfNeeded(currentRow + 50, 0);
+                      final currentRow = layout.getRowIndex(
+                        metrics.pixels,
+                        sheet.rowCount,
+                      );
+                      ref
+                          .read(workbookProvider.notifier)
+                          .expandIfNeeded(currentRow + 50, 0);
                     }
                   } else {
                     if (metrics.pixels > metrics.maxScrollExtent - 500) {
-                      final currentCol = layout.getColumnIndex(metrics.pixels, sheet.columnCount);
-                      ref.read(workbookProvider.notifier).expandIfNeeded(0, currentCol + 10);
+                      final currentCol = layout.getColumnIndex(
+                        metrics.pixels,
+                        sheet.columnCount,
+                      );
+                      ref
+                          .read(workbookProvider.notifier)
+                          .expandIfNeeded(0, currentCol + 10);
                     }
                   }
                 }
@@ -157,12 +177,14 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
                   }
                 },
                 onPointerMove: (event) {
-                  if (event.buttons == kPrimaryButton || event.kind == PointerDeviceKind.touch) {
+                  if (event.buttons == kPrimaryButton ||
+                      event.kind == PointerDeviceKind.touch) {
                     _scrollingEngine.scrollBy(-event.delta.dx, -event.delta.dy);
                   }
                 },
                 child: GestureDetector(
-                  onTapDown: (details) => _handleGesture(details.localPosition, layout, theme),
+                  onTapDown: (details) =>
+                      _handleGesture(details.localPosition, layout, theme),
                   onDoubleTapDown: (details) => _handleGesture(
                     details.localPosition,
                     layout,
@@ -201,7 +223,8 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
                                 theme: theme,
                                 activeCell: state.activeCell,
                                 mainSelection: state.mainSelection,
-                                additionalSelections: state.additionalSelections,
+                                additionalSelections:
+                                    state.additionalSelections,
                                 scrollX: currentX,
                                 scrollY: currentY,
                                 headerWidth: theme.rowHeaderWidth,
@@ -251,7 +274,8 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
 
   MouseCursor _getCursor() {
     if (_interactionState.hoveredZone != null) {
-      return _interactionState.hoveredZone!.direction == ResizeDirection.horizontal
+      return _interactionState.hoveredZone!.direction ==
+              ResizeDirection.horizontal
           ? SystemMouseCursors.resizeLeftRight
           : SystemMouseCursors.resizeUpDown;
     }
@@ -272,18 +296,25 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
     } else {
       if (_interactionState.hoveredZone != null) {
         setState(
-          () => _interactionState = _interactionState.copyWith(clearHover: true),
+          () =>
+              _interactionState = _interactionState.copyWith(clearHover: true),
         );
       }
     }
   }
 
-  void _detectColumnResizeZone(double x, LayoutEngine layout, Sheet sheet, SheetifyThemeData theme) {
+  void _detectColumnResizeZone(
+    double x,
+    LayoutEngine layout,
+    Sheet sheet,
+    SheetifyThemeData theme,
+  ) {
     const threshold = 4.0;
     final scrollX = _scrollX;
 
     final colIndex = layout.getColumnIndex(x + scrollX, sheet.columnCount);
-    final colOffset = layout.getColumnOffset(colIndex + 1, sheet.columnCount) - scrollX;
+    final colOffset =
+        layout.getColumnOffset(colIndex + 1, sheet.columnCount) - scrollX;
 
     if ((x - colOffset).abs() < threshold) {
       setState(() {
@@ -421,7 +452,10 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
           child: Container(
             decoration: BoxDecoration(
               color: theme.headerBackgroundColor,
-              border: Border.all(color: theme.gridLineColor, width: SheetifyDimensions.gridStrokeWidth),
+              border: Border.all(
+                color: theme.gridLineColor,
+                width: SheetifyDimensions.gridStrokeWidth,
+              ),
             ),
           ),
         ),
@@ -459,7 +493,11 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
     );
   }
 
-  Widget _buildScrollbars(Sheet sheet, LayoutEngine layout, SheetifyThemeData theme) {
+  Widget _buildScrollbars(
+    Sheet sheet,
+    LayoutEngine layout,
+    SheetifyThemeData theme,
+  ) {
     return Stack(
       children: [
         Positioned(
@@ -472,7 +510,9 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
               controller: _verticalController,
               thumbVisibility: true,
               thickness: 8,
-              radius: const Radius.circular(SheetifyDimensions.cornerRadiusSmall),
+              radius: const Radius.circular(
+                SheetifyDimensions.cornerRadiusSmall,
+              ),
               child: SingleChildScrollView(
                 controller: _verticalController,
                 child: SizedBox(height: layout.getTotalHeight(sheet.rowCount)),
@@ -490,7 +530,9 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
               controller: _horizontalController,
               thumbVisibility: true,
               thickness: 8,
-              radius: const Radius.circular(SheetifyDimensions.cornerRadiusSmall),
+              radius: const Radius.circular(
+                SheetifyDimensions.cornerRadiusSmall,
+              ),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 controller: _horizontalController,
@@ -569,7 +611,10 @@ class _HeaderPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _HeaderPainter oldDelegate) {
-    return oldDelegate.scroll != scroll || oldDelegate.range != range || oldDelegate.sheet != sheet || oldDelegate.theme != theme;
+    return oldDelegate.scroll != scroll ||
+        oldDelegate.range != range ||
+        oldDelegate.sheet != sheet ||
+        oldDelegate.theme != theme;
   }
 }
 

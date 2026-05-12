@@ -4,10 +4,7 @@ import 'package:sheetify/sheetify.dart' as entities;
 import 'package:sheetify/src/engine/merge/merged_cell_manager.dart';
 
 class XlsxSheetParser {
-  static XlsxSheetData parse(
-    XmlDocument xml,
-    List<String> sharedStrings,
-  ) {
+  static XlsxSheetData parse(XmlDocument xml, List<String> sharedStrings) {
     final Map<String, entities.Cell> cells = {};
     int maxR = 0;
     int maxC = 0;
@@ -44,7 +41,8 @@ class XlsxSheetParser {
           final raw = vElem.innerText;
           if (type == 's') {
             final idx = int.tryParse(raw);
-            if (idx != null && idx < sharedStrings.length) value = sharedStrings[idx];
+            if (idx != null && idx < sharedStrings.length)
+              value = sharedStrings[idx];
           } else if (type == 'b') {
             value = raw == '1';
           } else {
@@ -71,9 +69,9 @@ class XlsxSheetParser {
         final parts = ref.split(':');
         final start = GridUtils.parseAddress(parts[0]);
         final end = GridUtils.parseAddress(parts[1]);
-        mergeManager.addRegion(GridRange.fromRect(
-          start.row, start.column, end.row, end.column
-        ));
+        mergeManager.addRegion(
+          GridRange.fromRect(start.row, start.column, end.row, end.column),
+        );
       }
     }
 

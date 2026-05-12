@@ -11,11 +11,19 @@ class SheetifySpacingTokens {
   static const double xxLarge = 32.0;
 
   // Semantic Spacing
-  static const EdgeInsets toolbarPadding = EdgeInsets.symmetric(horizontal: medium);
-  static const EdgeInsets formulaBarPadding = EdgeInsets.symmetric(horizontal: medium, vertical: xSmall);
+  static const EdgeInsets toolbarPadding = EdgeInsets.symmetric(
+    horizontal: medium,
+  );
+  static const EdgeInsets formulaBarPadding = EdgeInsets.symmetric(
+    horizontal: medium,
+    vertical: xSmall,
+  );
   static const EdgeInsets tabPadding = EdgeInsets.symmetric(horizontal: large);
   static const EdgeInsets cardPadding = EdgeInsets.all(medium);
-  static const EdgeInsets statusPadding = EdgeInsets.symmetric(vertical: xSmall, horizontal: large);
+  static const EdgeInsets statusPadding = EdgeInsets.symmetric(
+    vertical: xSmall,
+    horizontal: large,
+  );
 
   // Gaps
   static const double iconGap = small;

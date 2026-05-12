@@ -1,14 +1,15 @@
 class IndexMappingEngine {
   final int totalCount;
-  
+
   // Mapping from visual index (what we see) to logical index (the actual data row)
   final List<int> _visualToLogical;
-  
+
   // Mapping from logical index to visual index
   final Map<int, int> _logicalToVisual = {};
 
   IndexMappingEngine(this.totalCount, {List<int>? visualToLogical})
-      : _visualToLogical = visualToLogical ?? List<int>.generate(totalCount, (i) => i) {
+    : _visualToLogical =
+          visualToLogical ?? List<int>.generate(totalCount, (i) => i) {
     _rebuildReverseMapping();
   }
 
@@ -71,7 +72,7 @@ class VisibilityManager {
 
   void hideRow(int row) => hiddenRows.add(row);
   void showRow(int row) => hiddenRows.remove(row);
-  
+
   void hideCol(int col) => hiddenCols.add(col);
   void showCol(int col) => hiddenCols.remove(col);
 

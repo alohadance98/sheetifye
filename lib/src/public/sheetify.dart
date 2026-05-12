@@ -12,7 +12,8 @@ import 'package:sheetify/src/features/workbook/widgets/sheetify_workbook.dart';
 import 'package:sheetify/src/public/widgets/sheetify_shimmer.dart';
 
 typedef SheetifyLoadingBuilder = Widget Function(BuildContext context);
-typedef SheetifyErrorBuilder = Widget Function(BuildContext context, Object error);
+typedef SheetifyErrorBuilder =
+    Widget Function(BuildContext context, Object error);
 
 /// A high-performance spreadsheet widget for Flutter.
 ///
@@ -196,9 +197,10 @@ class _SheetifyState extends ConsumerState<Sheetify> {
 
   @override
   Widget build(BuildContext context) {
-    final themeData = widget.theme ?? 
-        (Theme.of(context).brightness == Brightness.dark 
-            ? SheetifyThemeData.dark() 
+    final themeData =
+        widget.theme ??
+        (Theme.of(context).brightness == Brightness.dark
+            ? SheetifyThemeData.dark()
             : SheetifyThemeData.light());
 
     return SheetifyTheme(
@@ -206,15 +208,17 @@ class _SheetifyState extends ConsumerState<Sheetify> {
       child: Builder(
         builder: (context) {
           if (_isLoading) {
-            return widget.loadingBuilder?.call(context) ?? const SheetifyShimmer();
+            return widget.loadingBuilder?.call(context) ??
+                const SheetifyShimmer();
           }
 
           if (_error != null) {
-            return widget.errorBuilder?.call(context, _error!) ?? _buildDefaultError(context, themeData);
+            return widget.errorBuilder?.call(context, _error!) ??
+                _buildDefaultError(context, themeData);
           }
 
           return SheetifyWorkbook(readOnly: widget.readOnly);
-        }
+        },
       ),
     );
   }
@@ -232,10 +236,7 @@ class _SheetifyState extends ConsumerState<Sheetify> {
             style: TextStyle(color: theme.error),
           ),
           const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: _loadSheet,
-            child: const Text('Retry'),
-          ),
+          ElevatedButton(onPressed: _loadSheet, child: const Text('Retry')),
         ],
       ),
     );

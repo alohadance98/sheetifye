@@ -48,7 +48,7 @@ class VirtualizationEngine {
   }) {
     final startCol = layout.getColumnIndex(scrollX, totalCols);
     final endCol = layout.getColumnIndex(scrollX + viewportWidth, totalCols);
-    
+
     final startRow = layout.getRowIndex(scrollY, totalRows);
     final endRow = layout.getRowIndex(scrollY + viewportHeight, totalRows);
 

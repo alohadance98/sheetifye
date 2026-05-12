@@ -52,7 +52,10 @@ class FormulaParser {
         _advance(); // Consume ':'
         if (_match([FormulaTokenType.reference])) {
           final endRef = _previous().value;
-          return RangeReferenceNode('$ref:$endRef', GridUtils.parseRange('$ref:$endRef'));
+          return RangeReferenceNode(
+            '$ref:$endRef',
+            GridUtils.parseRange('$ref:$endRef'),
+          );
         }
       }
       final coord = GridUtils.parseAddress(ref);

@@ -38,7 +38,11 @@ class GridPainter extends CustomPainter {
       ..strokeWidth = SheetifyDimensions.gridStrokeWidth;
 
     // Draw vertical lines
-    for (int c = viewportRange.startColumn; c <= viewportRange.endColumn + 1; c++) {
+    for (
+      int c = viewportRange.startColumn;
+      c <= viewportRange.endColumn + 1;
+      c++
+    ) {
       double x = layout.getColumnOffset(c, sheet.columnCount) - scrollX;
       if (x >= 0 && x <= size.width) {
         canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
@@ -59,7 +63,11 @@ class GridPainter extends CustomPainter {
       final logicalR = sheet.rowIndexManager.getLogicalIndex(vR);
       if (logicalR == -1) continue;
 
-      for (int c = viewportRange.startColumn; c <= viewportRange.endColumn; c++) {
+      for (
+        int c = viewportRange.startColumn;
+        c <= viewportRange.endColumn;
+        c++
+      ) {
         if (sheet.mergedCells.isHidden(logicalR, c)) continue;
 
         final cell = sheet.cells['$logicalR,$c'];
@@ -109,7 +117,10 @@ class GridPainter extends CustomPainter {
 
           painter.paint(
             canvas,
-            Offset(x + horizontalPadding, y + (cellHeight - painter.height) / 2),
+            Offset(
+              x + horizontalPadding,
+              y + (cellHeight - painter.height) / 2,
+            ),
           );
         }
       }

@@ -9,7 +9,7 @@ class AutofillEngine {
 
   Map<String, String> generateFill(GridRange source, GridRange target) {
     final Map<String, String> results = {};
-    
+
     // Determine fill direction
     final isDown = target.minRow > source.maxRow;
     final isRight = target.minCol > source.maxCol;
@@ -24,14 +24,20 @@ class AutofillEngine {
         }
       }
     }
-    
+
     return results;
   }
 
   String fillFormula(String formula, int rowOffset, int colOffset) {
     if (!formula.startsWith('=')) return formula;
-    
+
     // Autofill formula shifting is basically a reference shift by the offset
-    return _shiftEngine.shiftFormula(formula, rowAt: 0, rowCount: rowOffset, colAt: 0, colCount: colOffset);
+    return _shiftEngine.shiftFormula(
+      formula,
+      rowAt: 0,
+      rowCount: rowOffset,
+      colAt: 0,
+      colCount: colOffset,
+    );
   }
 }

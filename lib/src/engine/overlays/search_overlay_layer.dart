@@ -28,12 +28,14 @@ class SearchOverlayLayer implements OverlayLayer {
     if (lowercaseQuery.isEmpty) return;
 
     canvas.save();
-    canvas.clipRect(Rect.fromLTWH(
-      context.headerWidth,
-      context.headerHeight,
-      size.width - context.headerWidth,
-      size.height - context.headerHeight,
-    ));
+    canvas.clipRect(
+      Rect.fromLTWH(
+        context.headerWidth,
+        context.headerHeight,
+        size.width - context.headerWidth,
+        size.height - context.headerHeight,
+      ),
+    );
 
     context.sheet.cells.forEach((address, cell) {
       final value = cell.value?.toString().toLowerCase() ?? '';
