@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sheetify/src/core/theme/sheetify_theme.dart';
-import 'package:sheetify/src/core/theme/sheetify_dimensions.dart';
-import 'package:sheetify/src/core/theme/sheetify_spacing_tokens.dart';
-import 'package:sheetify/src/features/workbook/state/workbook_state.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_theme.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_dimensions.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_spacing_tokens.dart';
+import 'package:sheetifye/src/features/workbook/state/workbook_state.dart';
 
-class SheetifyToolbar extends ConsumerStatefulWidget {
+class SheetifyeToolbar extends ConsumerStatefulWidget {
   final WorkbookController controller;
 
-  const SheetifyToolbar({super.key, required this.controller});
+  const SheetifyeToolbar({super.key, required this.controller});
 
   @override
-  ConsumerState<SheetifyToolbar> createState() => _SheetifyToolbarState();
+  ConsumerState<SheetifyeToolbar> createState() => _SheetifyeToolbarState();
 }
 
-class _SheetifyToolbarState extends ConsumerState<SheetifyToolbar> {
+class _SheetifyeToolbarState extends ConsumerState<SheetifyeToolbar> {
   late TextEditingController _searchController;
 
   @override
@@ -34,16 +34,16 @@ class _SheetifyToolbarState extends ConsumerState<SheetifyToolbar> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(workbookProvider);
-    final theme = SheetifyTheme.of(context);
+    final theme = SheetifyeTheme.of(context);
     final topPadding = MediaQuery.of(context).padding.top;
 
     return Container(
       height: theme.toolbarHeight + topPadding,
       padding: EdgeInsets.fromLTRB(
-        SheetifySpacingTokens.small,
+        SheetifyeSpacingTokens.small,
         topPadding,
-        SheetifySpacingTokens.small,
-        SheetifySpacingTokens.zero,
+        SheetifyeSpacingTokens.small,
+        SheetifyeSpacingTokens.zero,
       ),
       decoration: BoxDecoration(
         color: theme.primaryColor,
@@ -62,7 +62,7 @@ class _SheetifyToolbarState extends ConsumerState<SheetifyToolbar> {
               icon: Icon(
                 Icons.arrow_back,
                 color: theme.toolbarTextStyle.color,
-                size: SheetifyDimensions.iconSizeMedium,
+                size: SheetifyeDimensions.iconSizeMedium,
               ),
               onPressed: () {
                 _searchController.clear();
@@ -79,8 +79,7 @@ class _SheetifyToolbarState extends ConsumerState<SheetifyToolbar> {
                 decoration: InputDecoration(
                   hintText: 'Search...',
                   hintStyle: theme.toolbarTextStyle.copyWith(
-                    color:
-                        theme.toolbarTextStyle.color?.withValues(alpha: 0.7),
+                    color: theme.toolbarTextStyle.color?.withValues(alpha: 0.7),
                   ),
                   border: InputBorder.none,
                 ),
@@ -91,7 +90,7 @@ class _SheetifyToolbarState extends ConsumerState<SheetifyToolbar> {
                 icon: Icon(
                   Icons.close,
                   color: theme.toolbarTextStyle.color,
-                  size: SheetifyDimensions.iconSizeMedium,
+                  size: SheetifyeDimensions.iconSizeMedium,
                 ),
                 onPressed: () {
                   _searchController.clear();
@@ -102,9 +101,9 @@ class _SheetifyToolbarState extends ConsumerState<SheetifyToolbar> {
             Icon(
               Icons.table_chart,
               color: theme.toolbarTextStyle.color?.withValues(alpha: 0.9),
-              size: SheetifyDimensions.iconSizeMedium,
+              size: SheetifyeDimensions.iconSizeMedium,
             ),
-            const SizedBox(width: SheetifySpacingTokens.medium),
+            const SizedBox(width: SheetifyeSpacingTokens.medium),
             Expanded(
               child: Text(
                 state.workbook.name,
@@ -131,17 +130,17 @@ class _ToolbarIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = SheetifyTheme.of(context);
+    final theme = SheetifyeTheme.of(context);
     return IconButton(
       icon: Icon(
         icon,
-        size: SheetifyDimensions.iconSizeLarge,
+        size: SheetifyeDimensions.iconSizeLarge,
         color: theme.toolbarTextStyle.color,
       ),
       onPressed: onPressed,
       splashRadius: 20,
       constraints: const BoxConstraints(),
-      padding: const EdgeInsets.all(SheetifySpacingTokens.small),
+      padding: const EdgeInsets.all(SheetifyeSpacingTokens.small),
     );
   }
 }

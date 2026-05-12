@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/// Centralized typography tokens for Sheetify.
-class SheetifyTextTokens {
+/// Centralized typography tokens for Sheetifye.
+class SheetifyeTextTokens {
   // Base font family
   static String get fontFamily => GoogleFonts.inter().fontFamily ?? 'Inter';
   static String get monoFontFamily =>
@@ -10,13 +10,19 @@ class SheetifyTextTokens {
 
   // Semantic Text Styles
   static TextStyle get toolbarTitle => const TextStyle(
-      fontSize: 16, fontWeight: FontWeight.w600, letterSpacing: -0.2);
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    letterSpacing: -0.2,
+  );
 
   static TextStyle get formulaBar =>
       TextStyle(fontSize: 13, fontFamily: monoFontFamily);
 
   static TextStyle get gridHeader => const TextStyle(
-      fontSize: 11, fontWeight: FontWeight.w500, letterSpacing: 0.1);
+    fontSize: 11,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 0.1,
+  );
 
   static TextStyle get gridCell =>
       const TextStyle(fontSize: 13, fontWeight: FontWeight.normal);
@@ -28,7 +34,10 @@ class SheetifyTextTokens {
       const TextStyle(fontSize: 13, fontWeight: FontWeight.normal);
 
   static TextStyle get statusLabel => const TextStyle(
-      fontSize: 11, fontWeight: FontWeight.bold, letterSpacing: 1.1);
+    fontSize: 11,
+    fontWeight: FontWeight.bold,
+    letterSpacing: 1.1,
+  );
 
   static TextStyle get statusBody => const TextStyle(fontSize: 11);
 }

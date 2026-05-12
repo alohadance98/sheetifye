@@ -1,7 +1,7 @@
-import 'package:sheetify/src/domain/contracts/sheetify_repository.dart';
-import 'package:sheetify/src/domain/entities/workbook.dart';
+import 'package:sheetifye/src/domain/contracts/sheetifye_repository.dart';
+import 'package:sheetifye/src/domain/entities/workbook.dart';
 
-class MockSheetifyRepository implements SheetifyRepository {
+class MockSheetifyeRepository implements SheetifyeRepository {
   @override
   Future<Workbook> loadWorkbook(String id) async {
     await Future.delayed(const Duration(milliseconds: 500));

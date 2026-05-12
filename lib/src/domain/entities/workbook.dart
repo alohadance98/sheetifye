@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sheetify/src/engine/merge/merged_cell_manager.dart';
-import 'package:sheetify/src/engine/sort/index_mapping_engine.dart';
-import 'package:sheetify/src/domain/entities/cell.dart';
+import 'package:sheetifye/src/engine/merge/merged_cell_manager.dart';
+import 'package:sheetifye/src/engine/sort/index_mapping_engine.dart';
+import 'package:sheetifye/src/domain/entities/cell.dart';
 
 @immutable
 class Sheet {

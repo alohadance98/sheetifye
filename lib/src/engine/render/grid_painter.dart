@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:sheetify/src/core/theme/sheetify_theme_data.dart';
-import 'package:sheetify/src/core/theme/sheetify_dimensions.dart';
-import 'package:sheetify/src/core/theme/sheetify_spacing_tokens.dart';
-import 'package:sheetify/src/engine/virtualization/virtualization_engine.dart';
-import 'package:sheetify/src/engine/render/text_painter_cache.dart';
-import 'package:sheetify/src/engine/layout/layout_engine.dart';
-import 'package:sheetify/src/domain/entities/workbook.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_theme_data.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_dimensions.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_spacing_tokens.dart';
+import 'package:sheetifye/src/engine/virtualization/virtualization_engine.dart';
+import 'package:sheetifye/src/engine/render/text_painter_cache.dart';
+import 'package:sheetifye/src/engine/layout/layout_engine.dart';
+import 'package:sheetifye/src/domain/entities/workbook.dart';
 
 class GridPainter extends CustomPainter {
   final Sheet sheet;
   final ViewportRange viewportRange;
-  final SheetifyThemeData theme;
+  final SheetifyeThemeData theme;
   final double scrollX;
   final double scrollY;
   final TextPainterCache textPainterCache;
@@ -35,7 +35,7 @@ class GridPainter extends CustomPainter {
   void _drawGridLines(Canvas canvas, Size size) {
     final paint = Paint()
       ..color = theme.gridLineColor
-      ..strokeWidth = SheetifyDimensions.gridStrokeWidth;
+      ..strokeWidth = SheetifyeDimensions.gridStrokeWidth;
 
     // Draw vertical lines
     for (
@@ -98,17 +98,17 @@ class GridPainter extends CustomPainter {
         if (merge != null || (cell != null && cell.value != null)) {
           canvas.drawRect(
             Rect.fromLTWH(
-              x + SheetifyDimensions.gridStrokeWidth,
-              y + SheetifyDimensions.gridStrokeWidth,
-              cellWidth - SheetifyDimensions.gridStrokeWidth,
-              cellHeight - SheetifyDimensions.gridStrokeWidth,
+              x + SheetifyeDimensions.gridStrokeWidth,
+              y + SheetifyeDimensions.gridStrokeWidth,
+              cellWidth - SheetifyeDimensions.gridStrokeWidth,
+              cellHeight - SheetifyeDimensions.gridStrokeWidth,
             ),
             Paint()..color = theme.surfaceColor,
           );
         }
 
         if (cell != null && cell.value != null) {
-          const horizontalPadding = SheetifySpacingTokens.small;
+          const horizontalPadding = SheetifyeSpacingTokens.small;
           final painter = textPainterCache.getOrCreate(
             text: cell.value.toString(),
             style: theme.gridCellTextStyle,

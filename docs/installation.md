@@ -2,10 +2,10 @@
 
 ## Pub.dev
 
-The recommended way to install Sheetify is via [pub.dev](https://pub.dev/packages/sheetify).
+The recommended way to install Sheetifye is via [pub.dev](https://pub.dev/packages/sheetifye).
 
 ```bash
-flutter pub add sheetify
+flutter pub add sheetifye
 ```
 
 ## Manual Installation
@@ -14,9 +14,9 @@ If you need to use a specific version or a fork:
 
 ```yaml
 dependencies:
-  sheetify:
+  sheetifye:
     git:
-      url: https://github.com/vikaspoute/sheetify.git
+      url: https://github.com/vikaspoute/sheetifye.git
       ref: main
 ```
 
@@ -24,7 +24,7 @@ dependencies:
 
 ### Android
 - Minimum SDK: 21
-- Internet permission (if using `Sheetify.network`)
+- Internet permission (if using `Sheetifye.network`)
 
 ### iOS
 - Minimum iOS: 12.0

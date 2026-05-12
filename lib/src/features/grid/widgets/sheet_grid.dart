@@ -2,24 +2,24 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sheetify/src/core/theme/sheetify_theme.dart';
-import 'package:sheetify/src/core/theme/sheetify_theme_data.dart';
-import 'package:sheetify/src/core/theme/sheetify_dimensions.dart';
-import 'package:sheetify/src/features/workbook/state/workbook_state.dart';
-import 'package:sheetify/src/engine/render/grid_painter.dart';
-import 'package:sheetify/src/engine/scrolling/scrolling_engine.dart';
-import 'package:sheetify/src/engine/render/text_painter_cache.dart';
-import 'package:sheetify/src/core/utils/grid_utils.dart';
-import 'package:sheetify/src/domain/entities/workbook.dart';
-import 'package:sheetify/src/engine/overlays/overlay_manager.dart';
-import 'package:sheetify/src/engine/overlays/selection_overlay_layer.dart';
-import 'package:sheetify/src/engine/overlays/active_cell_overlay_layer.dart';
-import 'package:sheetify/src/engine/overlays/search_overlay_layer.dart';
-import 'package:sheetify/src/engine/overlays/position_resolver.dart';
-import 'package:sheetify/src/engine/overlays/cell_editor_overlay.dart';
-import 'package:sheetify/src/engine/layout/layout_engine.dart';
-import 'package:sheetify/src/engine/layout/layout_interaction.dart';
-import 'package:sheetify/src/engine/virtualization/virtualization_engine.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_theme.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_theme_data.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_dimensions.dart';
+import 'package:sheetifye/src/features/workbook/state/workbook_state.dart';
+import 'package:sheetifye/src/engine/render/grid_painter.dart';
+import 'package:sheetifye/src/engine/scrolling/scrolling_engine.dart';
+import 'package:sheetifye/src/engine/render/text_painter_cache.dart';
+import 'package:sheetifye/src/core/utils/grid_utils.dart';
+import 'package:sheetifye/src/domain/entities/workbook.dart';
+import 'package:sheetifye/src/engine/overlays/overlay_manager.dart';
+import 'package:sheetifye/src/engine/overlays/selection_overlay_layer.dart';
+import 'package:sheetifye/src/engine/overlays/active_cell_overlay_layer.dart';
+import 'package:sheetifye/src/engine/overlays/search_overlay_layer.dart';
+import 'package:sheetifye/src/engine/overlays/position_resolver.dart';
+import 'package:sheetifye/src/engine/overlays/cell_editor_overlay.dart';
+import 'package:sheetifye/src/engine/layout/layout_engine.dart';
+import 'package:sheetifye/src/engine/layout/layout_interaction.dart';
+import 'package:sheetifye/src/engine/virtualization/virtualization_engine.dart';
 
 class SheetGrid extends ConsumerStatefulWidget {
   const SheetGrid({super.key});
@@ -83,7 +83,7 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
     final state = ref.watch(workbookProvider);
     final layout = ref.watch(layoutProvider);
     final sheet = state.workbook.activeSheet;
-    final theme = SheetifyTheme.of(context);
+    final theme = SheetifyeTheme.of(context);
 
     final virtualizationEngine = VirtualizationEngine(layout: layout);
 
@@ -285,7 +285,7 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
     PointerHoverEvent event,
     LayoutEngine layout,
     Sheet sheet,
-    SheetifyThemeData theme,
+    SheetifyeThemeData theme,
   ) {
     final x = event.localPosition.dx;
     final y = event.localPosition.dy;
@@ -306,7 +306,7 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
     double x,
     LayoutEngine layout,
     Sheet sheet,
-    SheetifyThemeData theme,
+    SheetifyeThemeData theme,
   ) {
     const threshold = 4.0;
     final scrollX = _scrollX;
@@ -340,7 +340,7 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
   Widget _buildGridPart({
     required Sheet sheet,
     required ViewportRange range,
-    required SheetifyThemeData theme,
+    required SheetifyeThemeData theme,
     required double sx,
     required double sy,
     required double w,
@@ -365,7 +365,7 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
   void _handleGesture(
     Offset localPosition,
     LayoutEngine layout,
-    SheetifyThemeData theme, {
+    SheetifyeThemeData theme, {
     bool isDoubleTap = false,
   }) {
     final state = ref.read(workbookProvider);
@@ -394,7 +394,7 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
 
   Widget _buildHeaders(
     Sheet sheet,
-    SheetifyThemeData theme,
+    SheetifyeThemeData theme,
     LayoutEngine layout,
     double scrollX,
     double scrollY,
@@ -453,7 +453,7 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
               color: theme.headerBackgroundColor,
               border: Border.all(
                 color: theme.gridLineColor,
-                width: SheetifyDimensions.gridStrokeWidth,
+                width: SheetifyeDimensions.gridStrokeWidth,
               ),
             ),
           ),
@@ -466,7 +466,7 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
     WorkbookState state,
     Sheet sheet,
     LayoutEngine layout,
-    SheetifyThemeData theme,
+    SheetifyeThemeData theme,
     double scrollX,
     double scrollY,
   ) {
@@ -495,7 +495,7 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
   Widget _buildScrollbars(
     Sheet sheet,
     LayoutEngine layout,
-    SheetifyThemeData theme,
+    SheetifyeThemeData theme,
   ) {
     return Stack(
       children: [
@@ -510,7 +510,7 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
               thumbVisibility: true,
               thickness: 8,
               radius: const Radius.circular(
-                SheetifyDimensions.cornerRadiusSmall,
+                SheetifyeDimensions.cornerRadiusSmall,
               ),
               child: SingleChildScrollView(
                 controller: _verticalController,
@@ -530,7 +530,7 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
               thumbVisibility: true,
               thickness: 8,
               radius: const Radius.circular(
-                SheetifyDimensions.cornerRadiusSmall,
+                SheetifyeDimensions.cornerRadiusSmall,
               ),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -547,7 +547,7 @@ class _SheetGridState extends ConsumerState<SheetGrid> {
 
 class _HeaderPainter extends CustomPainter {
   final Sheet sheet;
-  final SheetifyThemeData theme;
+  final SheetifyeThemeData theme;
   final LayoutEngine layout;
   final double scroll;
   final Axis axis;
@@ -567,7 +567,7 @@ class _HeaderPainter extends CustomPainter {
     final paint = Paint()
       ..color = theme.gridLineColor
       ..style = PaintingStyle.stroke
-      ..strokeWidth = SheetifyDimensions.gridStrokeWidth;
+      ..strokeWidth = SheetifyeDimensions.gridStrokeWidth;
 
     final bgPaint = Paint()..color = theme.headerBackgroundColor;
 

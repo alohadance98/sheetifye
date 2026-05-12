@@ -10,7 +10,7 @@ class PerformanceHarness {
 
   void report() {
     // ignore: avoid_print
-    print('--- Sheetify Performance Report ---');
+    print('--- Sheetifye Performance Report ---');
     for (final result in _results) {
       // ignore: avoid_print
       print('${result.name}: ${result.microseconds}µs');

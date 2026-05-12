@@ -1,5 +1,5 @@
-/// Hard dimension tokens for Sheetify UI components.
-class SheetifyDimensions {
+/// Hard dimension tokens for Sheetifye UI components.
+class SheetifyeDimensions {
   // Component Heights
   static const double toolbarHeight = 48.0;
   static const double formulaBarHeight = 36.0;

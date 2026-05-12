@@ -1,19 +1,19 @@
-# Theming Sheetify
+# Theming Sheetifye
 
-Sheetify is designed to feel native to your application. It adapts automatically to your `ThemeData`, but also provides granular control via `SheetifyThemeData`.
+Sheetifye is designed to feel native to your application. It adapts automatically to your `ThemeData`, but also provides granular control via `SheetifyeThemeData`.
 
 ## Automatic Theming
 
-By default, Sheetify detects your app's brightness (Light/Dark) and primary colors.
+By default, Sheetifye detects your app's brightness (Light/Dark) and primary colors.
 
 ## Customizing the Theme
 
-Use the `theme` parameter in the `Sheetify` widget:
+Use the `theme` parameter in the `Sheetifye` widget:
 
 ```dart
-Sheetify.asset(
+Sheetifye.asset(
   'inventory.xlsx',
-  theme: SheetifyThemeData(
+  theme: SheetifyeThemeData(
     primary: Colors.indigo,
     accent: Colors.orange,
     gridLineColor: Colors.grey.withOpacity(0.2),
@@ -27,12 +27,12 @@ Sheetify.asset(
 
 ## Dark Mode
 
-Sheetify includes a built-in dark theme optimized for readability:
+Sheetifye includes a built-in dark theme optimized for readability:
 
 ```dart
-Sheetify.asset(
+Sheetifye.asset(
   'inventory.xlsx',
-  theme: SheetifyThemeData.dark(),
+  theme: SheetifyeThemeData.dark(),
 )
 ```
 
@@ -52,7 +52,7 @@ Sheetify.asset(
 You can override the default font family for the entire spreadsheet:
 
 ```dart
-SheetifyThemeData(
+SheetifyeThemeData(
   fontFamily: GoogleFonts.inter().fontFamily,
 )
 ```

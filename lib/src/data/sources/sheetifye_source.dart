@@ -4,11 +4,11 @@ import 'package:http/http.dart' as http;
 
 /// Base class for defining a source of spreadsheet data.
 ///
-/// Implementations of [SheetifySource] are responsible for loading the
+/// Implementations of [SheetifyeSource] are responsible for loading the
 /// raw bytes of a spreadsheet (usually XLSX) and providing an optional name.
-abstract class SheetifySource {
-  /// Constant constructor for [SheetifySource].
-  const SheetifySource();
+abstract class SheetifyeSource {
+  /// Constant constructor for [SheetifyeSource].
+  const SheetifyeSource();
 
   /// Loads the raw bytes of the spreadsheet.
   ///
@@ -20,15 +20,15 @@ abstract class SheetifySource {
 }
 
 /// A source that loads spreadsheet data from a Flutter asset.
-class AssetSheetifySource extends SheetifySource {
+class AssetSheetifyeSource extends SheetifyeSource {
   /// The path to the asset.
   final String assetName;
 
   /// Optional [AssetBundle] to use. Defaults to [rootBundle].
   final AssetBundle? bundle;
 
-  /// Creates an [AssetSheetifySource] for the given [assetName].
-  const AssetSheetifySource(this.assetName, {this.bundle});
+  /// Creates an [AssetSheetifyeSource] for the given [assetName].
+  const AssetSheetifyeSource(this.assetName, {this.bundle});
 
   @override
   Future<({Uint8List bytes, String? name})> loadBytes() async {
@@ -41,12 +41,12 @@ class AssetSheetifySource extends SheetifySource {
 }
 
 /// A source that loads spreadsheet data from a local [File].
-class FileSheetifySource extends SheetifySource {
+class FileSheetifyeSource extends SheetifyeSource {
   /// The local file to load.
   final File file;
 
-  /// Creates a [FileSheetifySource] for the given [file].
-  const FileSheetifySource(this.file);
+  /// Creates a [FileSheetifyeSource] for the given [file].
+  const FileSheetifyeSource(this.file);
 
   @override
   Future<({Uint8List bytes, String? name})> loadBytes() async {
@@ -59,15 +59,15 @@ class FileSheetifySource extends SheetifySource {
 }
 
 /// A source that loads spreadsheet data from an in-memory byte array.
-class MemorySheetifySource extends SheetifySource {
+class MemorySheetifyeSource extends SheetifyeSource {
   /// The raw bytes of the spreadsheet.
   final Uint8List bytes;
 
   /// An optional name for the workbook.
   final String? name;
 
-  /// Creates a [MemorySheetifySource] from the given [bytes].
-  const MemorySheetifySource(this.bytes, {this.name});
+  /// Creates a [MemorySheetifyeSource] from the given [bytes].
+  const MemorySheetifyeSource(this.bytes, {this.name});
 
   @override
   Future<({Uint8List bytes, String? name})> loadBytes() async =>
@@ -78,7 +78,7 @@ class MemorySheetifySource extends SheetifySource {
 }
 
 /// A source that loads spreadsheet data from a remote URL via HTTP GET.
-class NetworkSheetifySource extends SheetifySource {
+class NetworkSheetifyeSource extends SheetifyeSource {
   /// The URL of the spreadsheet file.
   final String url;
 
@@ -89,8 +89,8 @@ class NetworkSheetifySource extends SheetifySource {
   /// Optional HTTP headers to include in the request.
   final Map<String, String>? headers;
 
-  /// Creates a [NetworkSheetifySource] for the given [url].
-  const NetworkSheetifySource(this.url, {this.name, this.headers});
+  /// Creates a [NetworkSheetifyeSource] for the given [url].
+  const NetworkSheetifyeSource(this.url, {this.name, this.headers});
 
   @override
   Future<({Uint8List bytes, String? name})> loadBytes() async {

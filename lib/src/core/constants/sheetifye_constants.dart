@@ -1,4 +1,4 @@
-class SheetifyConstants {
+class SheetifyeConstants {
   static const double defaultColumnWidth = 100.0;
   static const double defaultRowHeight = 25.0;
 

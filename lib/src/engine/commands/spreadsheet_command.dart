@@ -1,4 +1,4 @@
-import 'package:sheetify/src/domain/entities/workbook.dart';
+import 'package:sheetifye/src/domain/entities/workbook.dart';
 
 abstract class SpreadsheetCommand {
   String get label;

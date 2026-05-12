@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-/// Standardized spacing tokens for Sheetify.
-class SheetifySpacingTokens {
+/// Standardized spacing tokens for Sheetifye.
+class SheetifyeSpacingTokens {
   static const double zero = 0.0;
   static const double xSmall = 4.0;
   static const double small = 8.0;

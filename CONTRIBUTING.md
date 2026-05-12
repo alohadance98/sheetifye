@@ -1,10 +1,10 @@
-# Contributing to Sheetify
+# Contributing to Sheetifye
 
-First off, thank you for considering contributing to Sheetify! It's people like you that make the open-source community such an amazing place to learn, inspire, and create.
+First off, thank you for considering contributing to Sheetifye! It's people like you that make the open-source community such an amazing place to learn, inspire, and create.
 
 ## Code of Conduct
 
-This project and everyone participating in it is governed by the [Sheetify Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+This project and everyone participating in it is governed by the [Sheetifye Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
 ## How Can I Contribute?
 

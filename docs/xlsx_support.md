@@ -1,6 +1,6 @@
 # XLSX Support
 
-Sheetify provides native parsing for `.xlsx` files without requiring external Excel installations.
+Sheetifye provides native parsing for `.xlsx` files without requiring external Excel installations.
 
 ## Supported Features
 
@@ -23,11 +23,11 @@ Sheetify provides native parsing for `.xlsx` files without requiring external Ex
 
 | Method | Use Case |
 |--------|----------|
-| `Sheetify.asset()` | Static data bundled with your app. |
-| `Sheetify.file()` | Local files from device storage. |
-| `Sheetify.network()` | Remote spreadsheets (reports, cloud data). |
-| `Sheetify.memory()` | In-memory bytes (e.g., from a file picker). |
+| `Sheetifye.asset()` | Static data bundled with your app. |
+| `Sheetifye.file()` | Local files from device storage. |
+| `Sheetifye.network()` | Remote spreadsheets (reports, cloud data). |
+| `Sheetifye.memory()` | In-memory bytes (e.g., from a file picker). |
 
 ## Performance Tip
 
-For very large XLSX files (>50MB), we recommend using `compute()` to parse the file in a background isolate to keep the UI responsive. Sheetify handles this automatically for you when using the factory constructors.
+For very large XLSX files (>50MB), we recommend using `compute()` to parse the file in a background isolate to keep the UI responsive. Sheetifye handles this automatically for you when using the factory constructors.

@@ -1,6 +1,6 @@
 import 'dart:collection';
-import 'package:sheetify/src/engine/commands/spreadsheet_command.dart';
-import 'package:sheetify/src/domain/entities/workbook.dart';
+import 'package:sheetifye/src/engine/commands/spreadsheet_command.dart';
+import 'package:sheetifye/src/domain/entities/workbook.dart';
 
 class CommandManager {
   final ListQueue<SpreadsheetCommand> _undoStack = ListQueue();

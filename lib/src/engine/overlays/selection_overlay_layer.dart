@@ -1,7 +1,7 @@
 import 'dart:ui';
-import 'package:sheetify/src/engine/overlays/overlay_manager.dart';
-import 'package:sheetify/src/engine/overlays/position_resolver.dart';
-import 'package:sheetify/src/core/theme/sheetify_dimensions.dart';
+import 'package:sheetifye/src/engine/overlays/overlay_manager.dart';
+import 'package:sheetifye/src/engine/overlays/position_resolver.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_dimensions.dart';
 
 class SelectionOverlayLayer implements OverlayLayer {
   @override
@@ -20,7 +20,7 @@ class SelectionOverlayLayer implements OverlayLayer {
 
     final borderPaint = Paint()
       ..color = context.theme.selectionBorderColor.withValues(alpha: 0.5)
-      ..strokeWidth = SheetifyDimensions.gridStrokeWidth
+      ..strokeWidth = SheetifyeDimensions.gridStrokeWidth
       ..style = PaintingStyle.stroke;
 
     // Paint main selection

@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:sheetify/sheetify.dart';
+import 'package:sheetifye/sheetifye.dart';
 
 class GalleryScreen extends StatelessWidget {
   const GalleryScreen({super.key});
@@ -9,7 +9,7 @@ class GalleryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sheetify Gallery'),
+        title: const Text('Sheetifye Gallery'),
         centerTitle: true,
       ),
       body: ListView(
@@ -22,7 +22,7 @@ class GalleryScreen extends StatelessWidget {
             title: 'Load from Assets',
             subtitle: 'Perfect for bundled templates and reports.',
             onTap: () =>
-                _openViewer(context, Sheetify.asset('restaurant_sales.xlsx')),
+                _openViewer(context, Sheetifye.asset('restaurant_sales.xlsx')),
           ),
           _buildExampleTile(
             context,
@@ -31,8 +31,8 @@ class GalleryScreen extends StatelessWidget {
             subtitle: 'Fetch dynamic spreadsheets from a remote URL.',
             onTap: () => _openViewer(
               context,
-              Sheetify.network(
-                'https://github.com/vikaspoute/sheetify/raw/main/example/restaurant_sales.xlsx',
+              Sheetifye.network(
+                'https://github.com/vikaspoute/sheetifye/raw/main/example/restaurant_sales.xlsx',
                 name: 'Network Workbook',
               ),
             ),
@@ -46,9 +46,9 @@ class GalleryScreen extends StatelessWidget {
             subtitle: 'Professional dark theme for low-light environments.',
             onTap: () => _openViewer(
               context,
-              Sheetify.asset(
+              Sheetifye.asset(
                 'restaurant_sales.xlsx',
-                theme: SheetifyThemeData.dark(),
+                theme: SheetifyeThemeData.dark(),
               ),
             ),
           ),
@@ -59,9 +59,9 @@ class GalleryScreen extends StatelessWidget {
             subtitle: 'Matching the spreadsheet to your app brand.',
             onTap: () => _openViewer(
               context,
-              Sheetify.asset(
+              Sheetifye.asset(
                 'restaurant_sales.xlsx',
-                theme: SheetifyThemeData.light().copyWith(
+                theme: SheetifyeThemeData.light().copyWith(
                   primaryColor: Colors.deepPurple,
                   selectionColor: Colors.deepPurple.withValues(alpha: 0.1),
                   headerBackgroundColor: Colors.deepPurple.shade50,
@@ -78,8 +78,8 @@ class GalleryScreen extends StatelessWidget {
             subtitle: 'Smooth scrolling with massive datasets.',
             onTap: () => _openViewer(
               context,
-              Sheetify(
-                source: MemorySheetifySource(
+              Sheetifye(
+                source: MemorySheetifyeSource(
                   // In a real app, this would be a large file
                   // For demo, we just use the same asset
                   Uint8List(0),
@@ -142,12 +142,12 @@ class GalleryScreen extends StatelessWidget {
     );
   }
 
-  void _openViewer(BuildContext context, Widget sheetify,
+  void _openViewer(BuildContext context, Widget sheetifye,
       {bool isStressTest = false}) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => Scaffold(
-          body: sheetify,
+          body: sheetifye,
         ),
       ),
     );

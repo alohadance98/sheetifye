@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sheetify/src/core/utils/grid_utils.dart';
-import 'package:sheetify/src/domain/entities/workbook.dart';
-import 'package:sheetify/src/engine/layout/layout_engine.dart';
+import 'package:sheetifye/src/core/utils/grid_utils.dart';
+import 'package:sheetifye/src/domain/entities/workbook.dart';
+import 'package:sheetifye/src/engine/layout/layout_engine.dart';
 
 class PositionResolver {
   static Rect getCellRect(

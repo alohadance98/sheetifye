@@ -1,4 +1,4 @@
-# Sheetify Project Stability Report
+# Sheetifye Project Stability Report
 
 **Date**: May 11, 2026
 

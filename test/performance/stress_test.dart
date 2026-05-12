@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sheetify/src/domain/entities/workbook.dart';
-import 'package:sheetify/src/features/workbook/state/workbook_state.dart';
+import 'package:sheetifye/src/domain/entities/workbook.dart';
+import 'package:sheetifye/src/features/workbook/state/workbook_state.dart';
 
 void main() {
-  group('Sheetify Stress Testing (1 Million Cells)', () {
+  group('Sheetifye Stress Testing (1 Million Cells)', () {
     test(
       'WorkbookController should handle 1,000,000 cell sheet initialization',
       () {

@@ -1,5 +1,5 @@
 import 'package:xml/xml.dart';
-import 'package:sheetify/src/data/adapters/xlsx/xlsx_archive_reader.dart';
+import 'package:sheetifye/src/data/adapters/xlsx/xlsx_archive_reader.dart';
 
 class XlsxStylesParser {
   static XlsxStyleTable parse(XlsxArchiveReader reader) {

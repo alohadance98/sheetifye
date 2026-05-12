@@ -1,50 +1,117 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/vikaspoute/sheetify/main/assets/logo.png" width="150" alt="Sheetify Logo" />
-</p>
+<div align="center">
 
-# Sheetify
+# ⚡ Sheetifye
 
-### A lightweight, virtualized Flutter spreadsheet viewer with native XLSX support.
+**The spreadsheet widget Flutter was missing.**
 
-[![Pub Version](https://img.shields.io/pub/v/sheetify?logo=dart&color=blue)](https://pub.dev/packages/sheetify)
-[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![Flutter Compatibility](https://img.shields.io/badge/Flutter-3.10+-blue?logo=flutter)](https://flutter.dev)
+[![Pub Version](https://img.shields.io/pub/v/sheetifye?logo=dart&color=0175C2&labelColor=1d1d1f&label=pub&style=for-the-badge)](https://pub.dev/packages/sheetifye)
+[![License](https://img.shields.io/badge/license-MIT-22c55e?labelColor=1d1d1f&style=for-the-badge)](LICENSE)
+[![Flutter](https://img.shields.io/badge/Flutter-3.10+-54C5F8?logo=flutter&logoColor=white&labelColor=1d1d1f&style=for-the-badge)](https://flutter.dev)
+[![Issues](https://img.shields.io/github/issues/vikaspoute/sheetifye?labelColor=1d1d1f&color=f59e0b&style=for-the-badge)](https://github.com/vikaspoute/sheetifye/issues)
+
+</div>
+
+<br/>
+
+> [!TIP]
+> **One widget. Native XLSX. 60+ FPS. Zero dependencies.**
+> Drop `Sheetifye` into any Flutter app and get a fully interactive spreadsheet viewer — on Mobile, Desktop, and Web — in under 5 minutes.
+
+<br/>
+
+<img src="https://raw.githubusercontent.com/vikaspoute/sheetifye/main/screenshots/graphic.png" alt="Sheetifye — See it in action" width="100%" />
+
+<br/>
+
+<div align="center">
+
+<table border="0" cellspacing="0" cellpadding="8">
+  <tr>
+    <td align="center" width="33%">
+      <img src="https://raw.githubusercontent.com/vikaspoute/sheetifye/main/screenshots/ios.png" alt="iOS" width="100%" />
+      <br/><sub><b>📱 iOS</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="https://raw.githubusercontent.com/vikaspoute/sheetifye/main/screenshots/android.png" alt="Android" width="100%" />
+      <br/><sub><b>🤖 Android</b></sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="https://raw.githubusercontent.com/vikaspoute/sheetifye/main/screenshots/web.png" alt="Web" width="100%" />
+      <br/><sub><b>🌐 Web</b></sub>
+    </td>
+  </tr>
+</table>
+
+[**📖 Docs**](docs/getting_started.md) &nbsp;·&nbsp; [**💡 Examples**](example/) &nbsp;·&nbsp; [**📋 Changelog**](CHANGELOG.md) &nbsp;·&nbsp; [**🐛 Report Bug**](https://github.com/vikaspoute/sheetifye/issues)
+
+</div>
 
 ---
 
-**Sheetify** is a high-performance spreadsheet engine for Flutter. It’s designed to render large workbooks with millions of cells smoothly, providing a native experience for viewing and interacting with `.xlsx` data across Mobile, Desktop, and Web.
+## Why Sheetifye?
 
-[**Explore the Docs**](docs/getting_started.md) • [**View Examples**](example/) • [**Report a Bug**](https://github.com/vikaspoute/sheetify/issues)
+Most Flutter apps that deal with data eventually hit the same wall: you need to show a spreadsheet, but the options are either too heavy, require a server, or look nothing like a real Excel file.
 
----
+Sheetifye solves this with a purpose-built virtualized renderer that parses `.xlsx` natively, in-app, with no external dependencies. It handles workbooks at any scale while feeling completely native on every platform.
 
-## ✨ Key Features
-
-- 🚀 **Virtualized Rendering**: Handles millions of cells at 60+ FPS.
-- 📦 **Native XLSX Support**: No external dependencies or Excel installations required.
-- 🎨 **Theme Aware**: Automatically adapts to your app's light/dark mode and color scheme.
-- 🖱️ **Selection System**: Support for single cell and range selection.
-- ⌨️ **Formula Bar**: Integrated viewer for cell values and formulas.
-- 📐 **Merged Cells**: Proper rendering and interaction with merged regions.
-- 🌐 **Platform Native**: Optimized for Touch (Mobile) and Mouse/Keyboard (Desktop/Web).
-
-## 📸 Screenshots
-
-| Light Mode | Dark Mode |
-|------------|-----------|
-| ![Light Mode Placeholder](https://raw.githubusercontent.com/vikaspoute/sheetify/main/screenshots/light_mode.png) | ![Dark Mode Placeholder](https://raw.githubusercontent.com/vikaspoute/sheetify/main/screenshots/dark_mode.png) |
-
-## 🚀 Quick Start
-
-### 1. Add dependency
-
-```bash
-flutter pub add sheetify
+```
+✦ No Excel required     ✦ Works fully offline     ✦ One widget, all platforms
 ```
 
-### 2. Wrap with ProviderScope
+---
 
-Sheetify uses Riverpod for state management. Ensure your app is wrapped in a `ProviderScope`:
+## Features
+
+<table>
+  <tr>
+    <td>🚀 <strong>Virtualized Rendering</strong></td>
+    <td>Renders only what's on screen — 60+ FPS even with millions of cells</td>
+  </tr>
+  <tr>
+    <td>📦 <strong>Native XLSX Parsing</strong></td>
+    <td>Full in-app parser with no external dependencies or installations</td>
+  </tr>
+  <tr>
+    <td>🎨 <strong>Theme Aware</strong></td>
+    <td>Automatically adapts to your app's <code>ThemeData</code> and <code>ColorScheme</code></td>
+  </tr>
+  <tr>
+    <td>🖱️ <strong>Smart Selection</strong></td>
+    <td>Single cell and range selection with full keyboard and touch support</td>
+  </tr>
+  <tr>
+    <td>⌨️ <strong>Formula Bar</strong></td>
+    <td>Integrated viewer that shows raw cell values and formulas</td>
+  </tr>
+  <tr>
+    <td>📐 <strong>Merged Cells</strong></td>
+    <td>Accurate rendering and hit-testing across merged cell regions</td>
+  </tr>
+  <tr>
+    <td>🌐 <strong>Cross-Platform</strong></td>
+    <td>Touch-optimized on mobile, mouse & keyboard ready on desktop and web</td>
+  </tr>
+</table>
+
+---
+
+## Quick Start
+
+### 1 · Add the dependency
+
+```yaml
+# pubspec.yaml
+dependencies:
+  sheetifye: ^1.0.0
+```
+
+```bash
+flutter pub add sheetifye
+```
+
+### 2 · Wrap with ProviderScope
+
+Sheetifye uses [Riverpod](https://riverpod.dev) internally. Add `ProviderScope` at your app root:
 
 ```dart
 void main() {
@@ -52,75 +119,107 @@ void main() {
 }
 ```
 
-### 3. Load a spreadsheet
+### 3 · Drop in the widget
 
 ```dart
-import 'package:sheetify/sheetify.dart';
+import 'package:sheetifye/sheetifye.dart';
 
-class MyView extends StatelessWidget {
+class SpreadsheetPage extends StatelessWidget {
+  const SpreadsheetPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Sheetify.asset(
-        'assets/reports/annual_sales.xlsx',
-        readOnly: true, // Default is true (v1 focus)
-      ),
+      body: Sheetifye.asset('assets/reports/annual_sales.xlsx'),
     );
   }
 }
 ```
 
-## 📂 Data Sources
+> That's it. You have a fully interactive spreadsheet viewer.
 
-Sheetify makes it easy to load data from anywhere:
+---
+
+## Data Sources
 
 ```dart
-// From Assets
-Sheetify.asset('assets/data.xlsx')
+// 📁 From app assets
+Sheetifye.asset('assets/data.xlsx')
 
-// From Web
-Sheetify.network('https://example.com/report.xlsx')
+// 🌐 From a remote URL
+Sheetifye.network('https://example.com/reports/q4.xlsx')
 
-// From File
-Sheetify.file(myFile)
+// 💾 From the device file system
+Sheetifye.file(File('/path/to/spreadsheet.xlsx'))
 
-// From Memory
-Sheetify.memory(bytes)
+// 🧠 From raw bytes
+Sheetifye.memory(bytes)
 ```
 
-## 🎨 Professional Theming
+---
 
-Match your brand perfectly with `SheetifyThemeData`:
+## Theming
 
 ```dart
-Sheetify.asset(
-  'data.xlsx',
-  theme: SheetifyThemeData(
+Sheetifye.asset(
+  'assets/data.xlsx',
+  theme: SheetifyeThemeData(
     primary: Colors.indigo,
     accent: Colors.amber,
-    headerBackground: Colors.grey[100]!,
+    headerBackground: Colors.grey.shade100,
     fontFamily: 'Inter',
   ),
 )
 ```
 
-## 🛠 Roadmap
-
-- [x] **v1.0.0**: High-performance read-only viewer, XLSX support, Selection system.
-- [ ] **v1.1.0**: Basic cell editing and value updates.
-- [ ] **v1.2.0**: Live formula engine and recalculation.
-- [ ] **v2.0.0**: Advanced styling, charts, and conditional formatting.
-
-## 🤝 Contributing
-
-We love contributions! Check out our [Contributing Guide](CONTRIBUTING.md) to get started.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+> When no theme is set, Sheetifye inherits your app's active `ThemeData` and `ColorScheme` automatically.
 
 ---
 
-<p align="center">
-  Built with ❤️ by <a href="https://github.com/vikaspoute">Vikas Poute</a>
-</p>
+## Roadmap
+
+| Version | Status | Highlights |
+|---------|--------|------------|
+| **v1.0.0** | ✅ Released | Virtualized viewer · XLSX parsing · Selection · Formula bar · Merged cells |
+| **v1.1.0** | 🔨 In Progress | Basic cell editing · In-memory value updates |
+| **v1.2.0** | 📋 Planned | Live formula engine · Real-time recalculation |
+| **v2.0.0** | 🔮 Future | Advanced styling · Charts · Conditional formatting |
+
+---
+
+## Contributing
+
+All contributions are welcome — bug fixes, features, docs, and ideas.
+
+```bash
+# 1. Fork & clone
+git clone https://github.com/vikaspoute/sheetifye.git
+
+# 2. Install dependencies
+flutter pub get
+
+# 3. Run tests
+flutter test
+```
+
+Read the [Contributing Guide](CONTRIBUTING.md) before opening a pull request. For major changes, open an issue first.
+
+---
+
+## License
+
+Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for details.
+
+---
+
+<div align="center">
+
+<br/>
+
+Built with ❤️ by [Vikas Poute](https://github.com/vikaspoute)
+
+<br/>
+
+⭐ **Found it useful? A star goes a long way — it helps others discover Sheetifye!** ⭐
+
+</div>

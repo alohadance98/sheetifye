@@ -1,29 +1,29 @@
 import 'dart:async';
 
-abstract class SheetifyEvent {
+abstract class SheetifyeEvent {
   final DateTime timestamp = DateTime.now();
 }
 
-class WorkbookMutationEvent extends SheetifyEvent {
+class WorkbookMutationEvent extends SheetifyeEvent {
   final String action;
   final dynamic details;
   WorkbookMutationEvent(this.action, this.details);
 }
 
-class ViewportScrollEvent extends SheetifyEvent {
+class ViewportScrollEvent extends SheetifyeEvent {
   final double scrollX;
   final double scrollY;
   ViewportScrollEvent(this.scrollX, this.scrollY);
 }
 
-class SheetifyEventBus {
-  final _controller = StreamController<SheetifyEvent>.broadcast();
+class SheetifyeEventBus {
+  final _controller = StreamController<SheetifyeEvent>.broadcast();
 
-  Stream<T> on<T extends SheetifyEvent>() {
+  Stream<T> on<T extends SheetifyeEvent>() {
     return _controller.stream.where((event) => event is T).cast<T>();
   }
 
-  void fire(SheetifyEvent event) {
+  void fire(SheetifyeEvent event) {
     _controller.add(event);
   }
 

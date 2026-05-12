@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sheetify/src/core/theme/sheetify_theme.dart';
-import 'package:sheetify/src/core/theme/sheetify_spacing_tokens.dart';
-import 'package:sheetify/src/core/theme/sheetify_dimensions.dart';
-import 'package:sheetify/src/features/workbook/state/workbook_state.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_theme.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_spacing_tokens.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_dimensions.dart';
+import 'package:sheetifye/src/features/workbook/state/workbook_state.dart';
 
 class FormulaBar extends ConsumerWidget {
   const FormulaBar({super.key});
@@ -11,7 +11,7 @@ class FormulaBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(workbookProvider);
-    final theme = SheetifyTheme.of(context);
+    final theme = SheetifyeTheme.of(context);
     final activeCell = state.activeCell;
     final cellValue = activeCell != null
         ? state
@@ -25,7 +25,7 @@ class FormulaBar extends ConsumerWidget {
 
     return Container(
       height: theme.formulaBarHeight,
-      padding: SheetifySpacingTokens.formulaBarPadding,
+      padding: SheetifyeSpacingTokens.formulaBarPadding,
       decoration: BoxDecoration(
         color: theme.formulaBarBackgroundColor,
         border: Border(bottom: BorderSide(color: theme.gridLineColor)),
@@ -35,13 +35,13 @@ class FormulaBar extends ConsumerWidget {
           // Cell Address Chip
           Container(
             padding: const EdgeInsets.symmetric(
-              horizontal: SheetifySpacingTokens.small,
+              horizontal: SheetifyeSpacingTokens.small,
               vertical: 2,
             ),
             decoration: BoxDecoration(
               color: theme.primaryColor,
               borderRadius: BorderRadius.circular(
-                SheetifyDimensions.cornerRadiusSmall,
+                SheetifyeDimensions.cornerRadiusSmall,
               ),
             ),
             child: Text(
@@ -52,7 +52,7 @@ class FormulaBar extends ConsumerWidget {
               ),
             ),
           ),
-          const SizedBox(width: SheetifySpacingTokens.medium),
+          const SizedBox(width: SheetifyeSpacingTokens.medium),
           // Formula / Value Text
           Expanded(
             child: Text(

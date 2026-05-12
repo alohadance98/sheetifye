@@ -1,20 +1,20 @@
 # Performance
 
-Sheetify is built for speed. It can handle workbooks with millions of cells while maintaining a consistent 60+ FPS.
+Sheetifye is built for speed. It can handle workbooks with millions of cells while maintaining a consistent 60+ FPS.
 
 ## How it Works
 
 ### 1. Virtualized Rendering
-Sheetify only renders the cells that are currently visible on the screen. As you scroll, cells are recycled and updated lazily. This keeps the memory footprint low regardless of the total workbook size.
+Sheetifye only renders the cells that are currently visible on the screen. As you scroll, cells are recycled and updated lazily. This keeps the memory footprint low regardless of the total workbook size.
 
 ### 2. Dual-Axis Synchronization
 The horizontal and vertical scroll systems are decoupled yet synchronized, allowing for smooth panning in any direction.
 
 ### 3. Isolate-based Parsing
-Loading a large spreadsheet can be CPU-intensive. Sheetify moves the parsing logic to a background worker (Isolate), ensuring your UI never stutters during the loading phase.
+Loading a large spreadsheet can be CPU-intensive. Sheetifye moves the parsing logic to a background worker (Isolate), ensuring your UI never stutters during the loading phase.
 
 ### 4. Sparse Data Structures
-Instead of storing a massive 2D array, Sheetify uses a sparse data structure to represent the workbook. Empty cells consume virtually zero memory.
+Instead of storing a massive 2D array, Sheetifye uses a sparse data structure to represent the workbook. Empty cells consume virtually zero memory.
 
 ## Benchmarks
 

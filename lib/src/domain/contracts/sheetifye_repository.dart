@@ -1,6 +1,6 @@
-import 'package:sheetify/src/domain/entities/workbook.dart';
+import 'package:sheetifye/src/domain/entities/workbook.dart';
 
-abstract class SheetifyRepository {
+abstract class SheetifyeRepository {
   Future<Workbook> loadWorkbook(String id);
   Future<void> saveWorkbook(Workbook workbook);
   Future<List<Workbook>> getWorkbooks();

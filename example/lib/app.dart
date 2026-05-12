@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sheetify_example/screens/gallery_screen.dart';
+import 'screens/gallery_screen.dart';
 
-class SheetifyExampleApp extends StatelessWidget {
-  const SheetifyExampleApp({super.key});
+class SheetifyeExampleApp extends StatelessWidget {
+  const SheetifyeExampleApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Sheetify Gallery',
+      title: 'Sheetifye Gallery',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,

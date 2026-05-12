@@ -1,5 +1,5 @@
-name: sheetify_example
-description: "A demonstration application for the Sheetify spreadsheet engine."
+name: sheetifye_example
+description: "A demonstration application for the Sheetifye spreadsheet engine."
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.4.9
-  sheetify:
+  sheetifye:
     path: ../
 
 dev_dependencies:

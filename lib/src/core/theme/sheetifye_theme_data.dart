@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:sheetify/src/core/theme/sheetify_color_tokens.dart';
-import 'package:sheetify/src/core/theme/sheetify_dimensions.dart';
-import 'package:sheetify/src/core/theme/sheetify_text_tokens.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_color_tokens.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_dimensions.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_text_tokens.dart';
 
-/// Defines the visual theme for [Sheetify] components.
+/// Defines the visual theme for [Sheetifye] components.
 ///
-/// [SheetifyThemeData] allows you to customize colors, typography, and
+/// [SheetifyeThemeData] allows you to customize colors, typography, and
 /// dimensions of the spreadsheet grid, headers, selection, and other UI elements.
 ///
-/// It can be passed to the `theme` parameter of the [Sheetify] widget.
+/// It can be passed to the `theme` parameter of the [Sheetifye] widget.
 @immutable
-class SheetifyThemeData extends ThemeExtension<SheetifyThemeData> {
+class SheetifyeThemeData extends ThemeExtension<SheetifyeThemeData> {
   // Colors
 
   /// The primary color used for selection borders and focus indicators.
@@ -118,8 +118,8 @@ class SheetifyThemeData extends ThemeExtension<SheetifyThemeData> {
   /// The height of the sheet tab area at the bottom.
   final double tabAreaHeight;
 
-  /// Creates a [SheetifyThemeData] with explicit values for all properties.
-  const SheetifyThemeData({
+  /// Creates a [SheetifyeThemeData] with explicit values for all properties.
+  const SheetifyeThemeData({
     required this.primaryColor,
     required this.backgroundColor,
     required this.surfaceColor,
@@ -147,82 +147,82 @@ class SheetifyThemeData extends ThemeExtension<SheetifyThemeData> {
     required this.tabInactiveTextStyle,
     required this.statusLabelTextStyle,
     required this.statusBodyTextStyle,
-    this.rowHeight = SheetifyDimensions.defaultRowHeight,
-    this.columnHeaderHeight = SheetifyDimensions.headerHeight,
-    this.rowHeaderWidth = SheetifyDimensions.headerWidth,
-    this.toolbarHeight = SheetifyDimensions.toolbarHeight,
-    this.formulaBarHeight = SheetifyDimensions.formulaBarHeight,
-    this.tabAreaHeight = SheetifyDimensions.tabAreaHeight,
+    this.rowHeight = SheetifyeDimensions.defaultRowHeight,
+    this.columnHeaderHeight = SheetifyeDimensions.headerHeight,
+    this.rowHeaderWidth = SheetifyeDimensions.headerWidth,
+    this.toolbarHeight = SheetifyeDimensions.toolbarHeight,
+    this.formulaBarHeight = SheetifyeDimensions.formulaBarHeight,
+    this.tabAreaHeight = SheetifyeDimensions.tabAreaHeight,
   });
 
-  /// Creates a default light theme for Sheetify.
-  factory SheetifyThemeData.light() {
-    return SheetifyThemeData(
-      primaryColor: SheetifyColorTokens.primary,
-      backgroundColor: SheetifyColorTokens.surfaceVariant,
-      surfaceColor: SheetifyColorTokens.surface,
-      gridLineColor: SheetifyColorTokens.gridLine,
-      shadowColor: SheetifyColorTokens.shadow,
-      headerBackgroundColor: SheetifyColorTokens.headerBackground,
-      headerForegroundColor: SheetifyColorTokens.onSurfaceVariant,
-      selectionColor: SheetifyColorTokens.selection,
-      selectionBorderColor: SheetifyColorTokens.selectionBorder,
-      searchHighlightColor: SheetifyColorTokens.searchHighlight,
-      searchHighlightBorderColor: SheetifyColorTokens.searchHighlightBorder,
-      formulaBarBackgroundColor: SheetifyColorTokens.primaryLight.withValues(
+  /// Creates a default light theme for Sheetifye.
+  factory SheetifyeThemeData.light() {
+    return SheetifyeThemeData(
+      primaryColor: SheetifyeColorTokens.primary,
+      backgroundColor: SheetifyeColorTokens.surfaceVariant,
+      surfaceColor: SheetifyeColorTokens.surface,
+      gridLineColor: SheetifyeColorTokens.gridLine,
+      shadowColor: SheetifyeColorTokens.shadow,
+      headerBackgroundColor: SheetifyeColorTokens.headerBackground,
+      headerForegroundColor: SheetifyeColorTokens.onSurfaceVariant,
+      selectionColor: SheetifyeColorTokens.selection,
+      selectionBorderColor: SheetifyeColorTokens.selectionBorder,
+      searchHighlightColor: SheetifyeColorTokens.searchHighlight,
+      searchHighlightBorderColor: SheetifyeColorTokens.searchHighlightBorder,
+      formulaBarBackgroundColor: SheetifyeColorTokens.primaryLight.withValues(
         alpha: 0.3,
       ),
-      formulaBarForegroundColor: SheetifyColorTokens.primaryDark,
-      cellTextColor: SheetifyColorTokens.onSurface,
-      statusIndicatorBackgroundColor: SheetifyColorTokens.statusBackground,
-      statusIndicatorForegroundColor: SheetifyColorTokens.statusForeground,
-      error: SheetifyColorTokens.error,
-      warning: SheetifyColorTokens.warning,
-      success: SheetifyColorTokens.success,
+      formulaBarForegroundColor: SheetifyeColorTokens.primaryDark,
+      cellTextColor: SheetifyeColorTokens.onSurface,
+      statusIndicatorBackgroundColor: SheetifyeColorTokens.statusBackground,
+      statusIndicatorForegroundColor: SheetifyeColorTokens.statusForeground,
+      error: SheetifyeColorTokens.error,
+      warning: SheetifyeColorTokens.warning,
+      success: SheetifyeColorTokens.success,
 
-      toolbarTextStyle: SheetifyTextTokens.toolbarTitle.copyWith(
+      toolbarTextStyle: SheetifyeTextTokens.toolbarTitle.copyWith(
         color: Colors.white,
       ),
-      formulaBarTextStyle: SheetifyTextTokens.formulaBar.copyWith(
-        color: SheetifyColorTokens.primaryDark,
+      formulaBarTextStyle: SheetifyeTextTokens.formulaBar.copyWith(
+        color: SheetifyeColorTokens.primaryDark,
       ),
-      gridHeaderTextStyle: SheetifyTextTokens.gridHeader.copyWith(
-        color: SheetifyColorTokens.onSurfaceVariant,
+      gridHeaderTextStyle: SheetifyeTextTokens.gridHeader.copyWith(
+        color: SheetifyeColorTokens.onSurfaceVariant,
       ),
-      gridCellTextStyle: SheetifyTextTokens.gridCell.copyWith(
-        color: SheetifyColorTokens.onSurface,
+      gridCellTextStyle: SheetifyeTextTokens.gridCell.copyWith(
+        color: SheetifyeColorTokens.onSurface,
       ),
-      tabActiveTextStyle: SheetifyTextTokens.tabActive.copyWith(
-        color: SheetifyColorTokens.primary,
+      tabActiveTextStyle: SheetifyeTextTokens.tabActive.copyWith(
+        color: SheetifyeColorTokens.primary,
       ),
-      tabInactiveTextStyle: SheetifyTextTokens.tabInactive.copyWith(
-        color: SheetifyColorTokens.onSurfaceVariant,
+      tabInactiveTextStyle: SheetifyeTextTokens.tabInactive.copyWith(
+        color: SheetifyeColorTokens.onSurfaceVariant,
       ),
-      statusLabelTextStyle: SheetifyTextTokens.statusLabel.copyWith(
-        color: SheetifyColorTokens.statusForeground,
+      statusLabelTextStyle: SheetifyeTextTokens.statusLabel.copyWith(
+        color: SheetifyeColorTokens.statusForeground,
       ),
-      statusBodyTextStyle: SheetifyTextTokens.statusBody.copyWith(
-        color: SheetifyColorTokens.statusForeground,
+      statusBodyTextStyle: SheetifyeTextTokens.statusBody.copyWith(
+        color: SheetifyeColorTokens.statusForeground,
       ),
     );
   }
 
-  /// Creates a default dark theme for Sheetify.
-  factory SheetifyThemeData.dark() {
-    return SheetifyThemeData(
-      primaryColor: SheetifyColorTokens.primaryLight,
+  /// Creates a default dark theme for Sheetifye.
+  factory SheetifyeThemeData.dark() {
+    return SheetifyeThemeData(
+      primaryColor: SheetifyeColorTokens.primaryLight,
       backgroundColor: Colors.black,
       surfaceColor: const Color(0xFF1E1E1E),
-      gridLineColor: SheetifyColorTokens.gridLineDark,
+      gridLineColor: SheetifyeColorTokens.gridLineDark,
       shadowColor: Colors.black54,
-      headerBackgroundColor: SheetifyColorTokens.headerBackgroundDark,
+      headerBackgroundColor: SheetifyeColorTokens.headerBackgroundDark,
       headerForegroundColor: Colors.white70,
-      selectionColor: SheetifyColorTokens.primary.withValues(alpha: 0.2),
-      selectionBorderColor: SheetifyColorTokens.primaryLight,
-      searchHighlightColor: SheetifyColorTokens.searchHighlight.withValues(
+      selectionColor: SheetifyeColorTokens.primary.withValues(alpha: 0.2),
+      selectionBorderColor: SheetifyeColorTokens.primaryLight,
+      searchHighlightColor: SheetifyeColorTokens.searchHighlight.withValues(
         alpha: 0.4,
       ),
-      searchHighlightBorderColor: SheetifyColorTokens.searchHighlightBorder,
+      searchHighlightBorderColor: SheetifyeColorTokens.searchHighlightBorder,
       formulaBarBackgroundColor: const Color(0xFF2C2C2C),
       formulaBarForegroundColor: Colors.white,
       cellTextColor: Colors.white,
@@ -232,35 +232,35 @@ class SheetifyThemeData extends ThemeExtension<SheetifyThemeData> {
       warning: const Color(0xFFFFB74D),
       success: const Color(0xFF81C784),
 
-      toolbarTextStyle: SheetifyTextTokens.toolbarTitle.copyWith(
+      toolbarTextStyle: SheetifyeTextTokens.toolbarTitle.copyWith(
         color: Colors.white,
       ),
-      formulaBarTextStyle: SheetifyTextTokens.formulaBar.copyWith(
+      formulaBarTextStyle: SheetifyeTextTokens.formulaBar.copyWith(
         color: Colors.white,
       ),
-      gridHeaderTextStyle: SheetifyTextTokens.gridHeader.copyWith(
+      gridHeaderTextStyle: SheetifyeTextTokens.gridHeader.copyWith(
         color: Colors.white70,
       ),
-      gridCellTextStyle: SheetifyTextTokens.gridCell.copyWith(
+      gridCellTextStyle: SheetifyeTextTokens.gridCell.copyWith(
         color: Colors.white,
       ),
-      tabActiveTextStyle: SheetifyTextTokens.tabActive.copyWith(
-        color: SheetifyColorTokens.primaryLight,
+      tabActiveTextStyle: SheetifyeTextTokens.tabActive.copyWith(
+        color: SheetifyeColorTokens.primaryLight,
       ),
-      tabInactiveTextStyle: SheetifyTextTokens.tabInactive.copyWith(
+      tabInactiveTextStyle: SheetifyeTextTokens.tabInactive.copyWith(
         color: Colors.white70,
       ),
-      statusLabelTextStyle: SheetifyTextTokens.statusLabel.copyWith(
+      statusLabelTextStyle: SheetifyeTextTokens.statusLabel.copyWith(
         color: const Color(0xFFFFD54F),
       ),
-      statusBodyTextStyle: SheetifyTextTokens.statusBody.copyWith(
+      statusBodyTextStyle: SheetifyeTextTokens.statusBody.copyWith(
         color: const Color(0xFFFFD54F),
       ),
     );
   }
 
   @override
-  SheetifyThemeData copyWith({
+  SheetifyeThemeData copyWith({
     Color? primaryColor,
     Color? backgroundColor,
     Color? surfaceColor,
@@ -295,7 +295,7 @@ class SheetifyThemeData extends ThemeExtension<SheetifyThemeData> {
     double? formulaBarHeight,
     double? tabAreaHeight,
   }) {
-    return SheetifyThemeData(
+    return SheetifyeThemeData(
       primaryColor: primaryColor ?? this.primaryColor,
       backgroundColor: backgroundColor ?? this.backgroundColor,
       surfaceColor: surfaceColor ?? this.surfaceColor,
@@ -340,9 +340,9 @@ class SheetifyThemeData extends ThemeExtension<SheetifyThemeData> {
   }
 
   @override
-  SheetifyThemeData lerp(ThemeExtension<SheetifyThemeData>? other, double t) {
-    if (other is! SheetifyThemeData) return this;
-    return SheetifyThemeData(
+  SheetifyeThemeData lerp(ThemeExtension<SheetifyeThemeData>? other, double t) {
+    if (other is! SheetifyeThemeData) return this;
+    return SheetifyeThemeData(
       primaryColor: Color.lerp(primaryColor, other.primaryColor, t)!,
       backgroundColor: Color.lerp(backgroundColor, other.backgroundColor, t)!,
       surfaceColor: Color.lerp(surfaceColor, other.surfaceColor, t)!,

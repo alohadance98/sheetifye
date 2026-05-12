@@ -1,4 +1,4 @@
-import 'package:sheetify/src/engine/sort/index_mapping_engine.dart';
+import 'package:sheetifye/src/engine/sort/index_mapping_engine.dart';
 
 enum SortOrder { ascending, descending }
 

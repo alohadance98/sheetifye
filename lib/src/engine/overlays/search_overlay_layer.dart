@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sheetify/src/engine/overlays/overlay_manager.dart';
-import 'package:sheetify/src/engine/overlays/position_resolver.dart';
-import 'package:sheetify/src/core/theme/sheetify_dimensions.dart';
+import 'package:sheetifye/src/engine/overlays/overlay_manager.dart';
+import 'package:sheetifye/src/engine/overlays/position_resolver.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_dimensions.dart';
 
 class SearchOverlayLayer implements OverlayLayer {
   @override
@@ -22,7 +22,7 @@ class SearchOverlayLayer implements OverlayLayer {
     final borderPaint = Paint()
       ..color = context.theme.searchHighlightBorderColor.withValues(alpha: 0.5)
       ..style = PaintingStyle.stroke
-      ..strokeWidth = SheetifyDimensions.gridStrokeWidth;
+      ..strokeWidth = SheetifyeDimensions.gridStrokeWidth;
 
     final lowercaseQuery = query.toLowerCase();
     if (lowercaseQuery.isEmpty) return;

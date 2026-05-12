@@ -12,7 +12,7 @@ class PerformanceMonitor {
     if (stopwatch != null) {
       stopwatch.stop();
       final ms = stopwatch.elapsedMilliseconds;
-      log('[Sheetify Performance] $label: ${ms}ms');
+      log('[Sheetifye Performance] $label: ${ms}ms');
     }
   }
 

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:sheetify/src/core/theme/sheetify_dimensions.dart';
-import 'package:sheetify/src/core/theme/sheetify_spacing_tokens.dart';
-import 'package:sheetify/src/core/theme/sheetify_theme.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_dimensions.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_spacing_tokens.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_theme.dart';
 import 'package:shimmer/shimmer.dart';
 
-class SheetifyShimmer extends StatelessWidget {
-  const SheetifyShimmer({super.key});
+class SheetifyeShimmer extends StatelessWidget {
+  const SheetifyeShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final theme = SheetifyTheme.of(context);
+    final theme = SheetifyeTheme.of(context);
     final baseColor = theme.gridLineColor;
     final highlightColor = theme.surfaceColor;
     final headerColor = theme.headerBackgroundColor;
@@ -26,25 +26,25 @@ class SheetifyShimmer extends StatelessWidget {
           Container(
             height: theme.toolbarHeight + topPadding,
             padding: EdgeInsets.fromLTRB(
-              SheetifySpacingTokens.medium,
+              SheetifyeSpacingTokens.medium,
               topPadding,
-              SheetifySpacingTokens.medium,
-              SheetifySpacingTokens.zero,
+              SheetifyeSpacingTokens.medium,
+              SheetifyeSpacingTokens.zero,
             ),
             color: headerColor,
             child: Row(
               children: List.generate(
                 8,
                 (i) => Container(
-                  width: SheetifyDimensions.iconSizeLarge,
-                  height: SheetifyDimensions.iconSizeLarge,
+                  width: SheetifyeDimensions.iconSizeLarge,
+                  height: SheetifyeDimensions.iconSizeLarge,
                   margin: const EdgeInsets.only(
-                    right: SheetifySpacingTokens.medium,
+                    right: SheetifyeSpacingTokens.medium,
                   ),
                   decoration: BoxDecoration(
                     color: baseColor,
                     borderRadius: BorderRadius.circular(
-                      SheetifyDimensions.cornerRadiusSmall,
+                      SheetifyeDimensions.cornerRadiusSmall,
                     ),
                   ),
                 ),
@@ -55,7 +55,7 @@ class SheetifyShimmer extends StatelessWidget {
           // 2. Formula Bar Placeholder
           Container(
             height: theme.formulaBarHeight,
-            padding: SheetifySpacingTokens.formulaBarPadding,
+            padding: SheetifyeSpacingTokens.formulaBarPadding,
             color: theme.surfaceColor,
             child: Row(
               children: [
@@ -65,11 +65,11 @@ class SheetifyShimmer extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: baseColor,
                     borderRadius: BorderRadius.circular(
-                      SheetifyDimensions.cornerRadiusSmall,
+                      SheetifyeDimensions.cornerRadiusSmall,
                     ),
                   ),
                 ),
-                const SizedBox(width: SheetifySpacingTokens.small),
+                const SizedBox(width: SheetifyeSpacingTokens.small),
                 Expanded(child: Container(height: 20, color: baseColor)),
               ],
             ),
@@ -115,7 +115,7 @@ class SheetifyShimmer extends StatelessWidget {
                         height: theme.rowHeight,
                         margin: const EdgeInsets.only(left: 1, bottom: 1),
                         padding: const EdgeInsets.all(
-                          SheetifySpacingTokens.small,
+                          SheetifyeSpacingTokens.small,
                         ),
                         color: theme.surfaceColor,
                         child: i % 2 == 0
@@ -138,7 +138,7 @@ class SheetifyShimmer extends StatelessWidget {
           // 5. Sheet Tabs Bar
           Container(
             height: theme.tabAreaHeight,
-            padding: SheetifySpacingTokens.tabPadding,
+            padding: SheetifyeSpacingTokens.tabPadding,
             color: theme.surfaceColor,
             child: Row(
               children: [
@@ -148,18 +148,18 @@ class SheetifyShimmer extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: baseColor,
                     borderRadius: BorderRadius.circular(
-                      SheetifyDimensions.cornerRadiusSmall,
+                      SheetifyeDimensions.cornerRadiusSmall,
                     ),
                   ),
                 ),
-                const SizedBox(width: SheetifySpacingTokens.small),
+                const SizedBox(width: SheetifyeSpacingTokens.small),
                 Container(
                   width: 80,
                   height: 24,
                   decoration: BoxDecoration(
                     color: baseColor.withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(
-                      SheetifyDimensions.cornerRadiusSmall,
+                      SheetifyeDimensions.cornerRadiusSmall,
                     ),
                   ),
                 ),

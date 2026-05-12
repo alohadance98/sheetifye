@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// Semantic color tokens for the Sheetify design system.
+/// Semantic color tokens for the Sheetifye design system.
 /// These represent the 'intent' of colors rather than their absolute values.
-class SheetifyColorTokens {
+class SheetifyeColorTokens {
   // Brand Colors
   static const Color primary = Color(0xFF1E88E5);
   static const Color primaryDark = Color(0xFF1565C0);

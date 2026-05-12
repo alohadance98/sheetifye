@@ -2,34 +2,34 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sheetify/src/domain/entities/workbook.dart';
-import 'package:sheetify/src/data/sources/sheetify_source.dart';
-import 'package:sheetify/src/data/adapters/xlsx/xlsx_adapter.dart';
-import 'package:sheetify/src/core/theme/sheetify_theme.dart';
-import 'package:sheetify/src/core/theme/sheetify_theme_data.dart';
-import 'package:sheetify/src/features/workbook/state/workbook_state.dart';
-import 'package:sheetify/src/features/workbook/widgets/sheetify_workbook.dart';
-import 'package:sheetify/src/public/widgets/sheetify_shimmer.dart';
+import 'package:sheetifye/src/domain/entities/workbook.dart';
+import 'package:sheetifye/src/data/sources/sheetifye_source.dart';
+import 'package:sheetifye/src/data/adapters/xlsx/xlsx_adapter.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_theme.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_theme_data.dart';
+import 'package:sheetifye/src/features/workbook/state/workbook_state.dart';
+import 'package:sheetifye/src/features/workbook/widgets/sheetifye_workbook.dart';
+import 'package:sheetifye/src/public/widgets/sheetifye_shimmer.dart';
 
-typedef SheetifyLoadingBuilder = Widget Function(BuildContext context);
-typedef SheetifyErrorBuilder =
+typedef SheetifyeLoadingBuilder = Widget Function(BuildContext context);
+typedef SheetifyeErrorBuilder =
     Widget Function(BuildContext context, Object error);
 
 /// A high-performance spreadsheet widget for Flutter.
 ///
-/// [Sheetify] provides a virtualized grid for viewing and interacting with
+/// [Sheetifye] provides a virtualized grid for viewing and interacting with
 /// spreadsheet data. It supports loading data from various sources (assets,
 /// files, network, memory) and features native XLSX parsing.
 ///
 /// ### Basic Usage:
 /// ```dart
-/// Sheetify.asset('assets/my_data.xlsx')
+/// Sheetifye.asset('assets/my_data.xlsx')
 /// ```
 ///
-/// To use [Sheetify], your app must be wrapped in a `ProviderScope` (from `flutter_riverpod`).
-class Sheetify extends ConsumerStatefulWidget {
+/// To use [Sheetifye], your app must be wrapped in a `ProviderScope` (from `flutter_riverpod`).
+class Sheetifye extends ConsumerStatefulWidget {
   /// The source from which to load the spreadsheet data.
-  final SheetifySource source;
+  final SheetifyeSource source;
 
   /// Whether the spreadsheet is in read-only mode.
   ///
@@ -40,19 +40,19 @@ class Sheetify extends ConsumerStatefulWidget {
   /// Custom theme data for the spreadsheet.
   ///
   /// If null, it will automatically detect the app's brightness and use
-  /// [SheetifyThemeData.light()] or [SheetifyThemeData.dark()].
-  final SheetifyThemeData? theme;
+  /// [SheetifyeThemeData.light()] or [SheetifyeThemeData.dark()].
+  final SheetifyeThemeData? theme;
 
   /// Optional builder to show a custom loading widget while the data is parsing.
   ///
-  /// Defaults to a [SheetifyShimmer] effect.
-  final SheetifyLoadingBuilder? loadingBuilder;
+  /// Defaults to a [SheetifyeShimmer] effect.
+  final SheetifyeLoadingBuilder? loadingBuilder;
 
   /// Optional builder to show a custom error widget if loading fails.
-  final SheetifyErrorBuilder? errorBuilder;
+  final SheetifyeErrorBuilder? errorBuilder;
 
-  /// Creates a [Sheetify] widget with a generic [SheetifySource].
-  const Sheetify({
+  /// Creates a [Sheetifye] widget with a generic [SheetifyeSource].
+  const Sheetifye({
     super.key,
     required this.source,
     this.readOnly = true,
@@ -61,73 +61,73 @@ class Sheetify extends ConsumerStatefulWidget {
     this.errorBuilder,
   });
 
-  /// Creates a [Sheetify] widget that loads data from an asset.
+  /// Creates a [Sheetifye] widget that loads data from an asset.
   ///
   /// [assetName] is the path to the XLSX file in your project's assets.
-  factory Sheetify.asset(
+  factory Sheetifye.asset(
     String assetName, {
     Key? key,
     bool readOnly = true,
-    SheetifyThemeData? theme,
-    SheetifyLoadingBuilder? loadingBuilder,
-    SheetifyErrorBuilder? errorBuilder,
-  }) => Sheetify(
+    SheetifyeThemeData? theme,
+    SheetifyeLoadingBuilder? loadingBuilder,
+    SheetifyeErrorBuilder? errorBuilder,
+  }) => Sheetifye(
     key: key,
-    source: AssetSheetifySource(assetName),
+    source: AssetSheetifyeSource(assetName),
     readOnly: readOnly,
     theme: theme,
     loadingBuilder: loadingBuilder,
     errorBuilder: errorBuilder,
   );
 
-  /// Creates a [Sheetify] widget that loads data from a local file.
-  factory Sheetify.file(
+  /// Creates a [Sheetifye] widget that loads data from a local file.
+  factory Sheetifye.file(
     File file, {
     Key? key,
     bool readOnly = true,
-    SheetifyThemeData? theme,
-    SheetifyLoadingBuilder? loadingBuilder,
-    SheetifyErrorBuilder? errorBuilder,
-  }) => Sheetify(
+    SheetifyeThemeData? theme,
+    SheetifyeLoadingBuilder? loadingBuilder,
+    SheetifyeErrorBuilder? errorBuilder,
+  }) => Sheetifye(
     key: key,
-    source: FileSheetifySource(file),
+    source: FileSheetifyeSource(file),
     readOnly: readOnly,
     theme: theme,
     loadingBuilder: loadingBuilder,
     errorBuilder: errorBuilder,
   );
 
-  /// Creates a [Sheetify] widget that loads data from a byte array.
-  factory Sheetify.memory(
+  /// Creates a [Sheetifye] widget that loads data from a byte array.
+  factory Sheetifye.memory(
     Uint8List bytes, {
     Key? key,
     String? name,
     bool readOnly = true,
-    SheetifyThemeData? theme,
-    SheetifyLoadingBuilder? loadingBuilder,
-    SheetifyErrorBuilder? errorBuilder,
-  }) => Sheetify(
+    SheetifyeThemeData? theme,
+    SheetifyeLoadingBuilder? loadingBuilder,
+    SheetifyeErrorBuilder? errorBuilder,
+  }) => Sheetifye(
     key: key,
-    source: MemorySheetifySource(bytes, name: name),
+    source: MemorySheetifyeSource(bytes, name: name),
     readOnly: readOnly,
     theme: theme,
     loadingBuilder: loadingBuilder,
     errorBuilder: errorBuilder,
   );
 
-  /// Creates a [Sheetify] widget that loads data from a URL.
-  factory Sheetify.network(
+  /// Creates a [Sheetifye] widget that loads data from a URL.
+  factory Sheetifye.network(
     String url, {
     Key? key,
     String? name,
     Map<String, String>? headers,
     bool readOnly = true,
-    SheetifyThemeData? theme,
-    SheetifyLoadingBuilder? loadingBuilder,
-    SheetifyErrorBuilder? errorBuilder,
-  }) => Sheetify(
+    SheetifyeThemeData? theme,
+    SheetifyeLoadingBuilder? loadingBuilder,
+    SheetifyeErrorBuilder? errorBuilder,
+  }) => Sheetifye(
     key: key,
-    source: NetworkSheetifySource(url, name: name, headers: headers),
+    source: NetworkSheetifyeSource(url, name: name, headers: headers),
     readOnly: readOnly,
     theme: theme,
     loadingBuilder: loadingBuilder,
@@ -135,10 +135,10 @@ class Sheetify extends ConsumerStatefulWidget {
   );
 
   @override
-  ConsumerState<Sheetify> createState() => _SheetifyState();
+  ConsumerState<Sheetifye> createState() => _SheetifyeState();
 }
 
-class _SheetifyState extends ConsumerState<Sheetify> {
+class _SheetifyeState extends ConsumerState<Sheetifye> {
   bool _isLoading = true;
   Object? _error;
   String? _lastCacheKey;
@@ -150,7 +150,7 @@ class _SheetifyState extends ConsumerState<Sheetify> {
   }
 
   @override
-  void didUpdateWidget(Sheetify oldWidget) {
+  void didUpdateWidget(Sheetifye oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.source.cacheKey != widget.source.cacheKey) {
       _loadSheet();
@@ -200,16 +200,16 @@ class _SheetifyState extends ConsumerState<Sheetify> {
     final themeData =
         widget.theme ??
         (Theme.of(context).brightness == Brightness.dark
-            ? SheetifyThemeData.dark()
-            : SheetifyThemeData.light());
+            ? SheetifyeThemeData.dark()
+            : SheetifyeThemeData.light());
 
-    return SheetifyTheme(
+    return SheetifyeTheme(
       data: themeData,
       child: Builder(
         builder: (context) {
           if (_isLoading) {
             return widget.loadingBuilder?.call(context) ??
-                const SheetifyShimmer();
+                const SheetifyeShimmer();
           }
 
           if (_error != null) {
@@ -217,13 +217,13 @@ class _SheetifyState extends ConsumerState<Sheetify> {
                 _buildDefaultError(context, themeData);
           }
 
-          return SheetifyWorkbook(readOnly: widget.readOnly);
+          return SheetifyeWorkbook(readOnly: widget.readOnly);
         },
       ),
     );
   }
 
-  Widget _buildDefaultError(BuildContext context, SheetifyThemeData theme) {
+  Widget _buildDefaultError(BuildContext context, SheetifyeThemeData theme) {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,

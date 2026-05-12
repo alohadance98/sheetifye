@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sheetify/src/core/theme/sheetify_theme.dart';
-import 'package:sheetify/src/core/theme/sheetify_spacing_tokens.dart';
-import 'package:sheetify/src/core/theme/sheetify_dimensions.dart';
-import 'package:sheetify/src/features/workbook/state/workbook_state.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_theme.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_spacing_tokens.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_dimensions.dart';
+import 'package:sheetifye/src/features/workbook/state/workbook_state.dart';
 
 class SheetTabs extends ConsumerWidget {
   const SheetTabs({super.key});
@@ -11,7 +11,7 @@ class SheetTabs extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(workbookProvider);
-    final theme = SheetifyTheme.of(context);
+    final theme = SheetifyeTheme.of(context);
     final sheets = state.workbook.sheets;
     final activeIndex = state.workbook.activeSheetIndex;
 
@@ -44,7 +44,7 @@ class SheetTabs extends ConsumerWidget {
                     details.globalPosition,
                   ),
                   child: Container(
-                    padding: SheetifySpacingTokens.tabPadding,
+                    padding: SheetifyeSpacingTokens.tabPadding,
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
@@ -60,12 +60,12 @@ class SheetTabs extends ConsumerWidget {
                       children: [
                         Icon(
                           Icons.table_rows_outlined,
-                          size: SheetifyDimensions.iconSizeSmall,
+                          size: SheetifyeDimensions.iconSizeSmall,
                           color: isActive
                               ? theme.primaryColor
                               : theme.headerForegroundColor,
                         ),
-                        const SizedBox(width: SheetifySpacingTokens.small),
+                        const SizedBox(width: SheetifyeSpacingTokens.small),
                         Text(
                           sheet.name,
                           style: isActive
@@ -101,14 +101,14 @@ class SheetTabs extends ConsumerWidget {
       Offset.zero & overlay.size,
     );
 
-    final theme = SheetifyTheme.of(context);
+    final theme = SheetifyeTheme.of(context);
     showMenu(
       context: context,
       position: menuPosition,
       elevation: 8,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
-          SheetifyDimensions.cornerRadiusMedium,
+          SheetifyeDimensions.cornerRadiusMedium,
         ),
       ),
       items: [
@@ -116,8 +116,8 @@ class SheetTabs extends ConsumerWidget {
           value: 'rename',
           child: Row(
             children: [
-              Icon(Icons.edit, size: SheetifyDimensions.iconSizeSmall),
-              SizedBox(width: SheetifySpacingTokens.medium),
+              Icon(Icons.edit, size: SheetifyeDimensions.iconSizeSmall),
+              SizedBox(width: SheetifyeSpacingTokens.medium),
               Text('Rename'),
             ],
           ),
@@ -129,10 +129,10 @@ class SheetTabs extends ConsumerWidget {
               children: [
                 Icon(
                   Icons.delete,
-                  size: SheetifyDimensions.iconSizeSmall,
+                  size: SheetifyeDimensions.iconSizeSmall,
                   color: theme.error,
                 ),
-                const SizedBox(width: SheetifySpacingTokens.medium),
+                const SizedBox(width: SheetifyeSpacingTokens.medium),
                 Text('Delete', style: TextStyle(color: theme.error)),
               ],
             ),
@@ -193,7 +193,7 @@ class SheetTabs extends ConsumerWidget {
     int index,
     String sheetName,
   ) {
-    final theme = SheetifyTheme.of(context);
+    final theme = SheetifyeTheme.of(context);
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

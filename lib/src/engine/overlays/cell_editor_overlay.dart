@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sheetify/src/core/theme/sheetify_dimensions.dart';
-import 'package:sheetify/src/core/theme/sheetify_spacing_tokens.dart';
-import 'package:sheetify/src/core/theme/sheetify_theme.dart';
-import 'package:sheetify/src/features/workbook/state/workbook_state.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_dimensions.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_spacing_tokens.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_theme.dart';
+import 'package:sheetifye/src/features/workbook/state/workbook_state.dart';
 
 class CellEditorOverlay extends ConsumerStatefulWidget {
   final VoidCallback onCancel;
@@ -54,7 +54,7 @@ class _CellEditorOverlayState extends ConsumerState<CellEditorOverlay> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(workbookProvider);
-    final theme = SheetifyTheme.of(context);
+    final theme = SheetifyeTheme.of(context);
 
     if (state.activeCell == null || !state.isEditing) {
       return const SizedBox.shrink();
@@ -65,7 +65,7 @@ class _CellEditorOverlayState extends ConsumerState<CellEditorOverlay> {
         color: theme.surfaceColor,
         border: Border.all(
           color: theme.selectionBorderColor,
-          width: SheetifyDimensions.activeCellStrokeWidth,
+          width: SheetifyeDimensions.activeCellStrokeWidth,
         ),
         boxShadow: [
           BoxShadow(color: theme.shadowColor, blurRadius: 4, spreadRadius: 1),
@@ -77,7 +77,7 @@ class _CellEditorOverlayState extends ConsumerState<CellEditorOverlay> {
         decoration: const InputDecoration(
           border: InputBorder.none,
           isDense: true,
-          contentPadding: EdgeInsets.all(SheetifySpacingTokens.small),
+          contentPadding: EdgeInsets.all(SheetifyeSpacingTokens.small),
         ),
         style: theme.gridCellTextStyle,
         maxLines: null,

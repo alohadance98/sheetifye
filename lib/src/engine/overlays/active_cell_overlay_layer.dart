@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sheetify/src/engine/overlays/overlay_manager.dart';
-import 'package:sheetify/src/engine/overlays/position_resolver.dart';
-import 'package:sheetify/src/core/theme/sheetify_dimensions.dart';
+import 'package:sheetifye/src/engine/overlays/overlay_manager.dart';
+import 'package:sheetifye/src/engine/overlays/position_resolver.dart';
+import 'package:sheetifye/src/core/theme/sheetifye_dimensions.dart';
 
 class ActiveCellOverlayLayer implements OverlayLayer {
   @override
@@ -16,7 +16,7 @@ class ActiveCellOverlayLayer implements OverlayLayer {
 
     final paint = Paint()
       ..color = context.theme.selectionBorderColor
-      ..strokeWidth = SheetifyDimensions.activeCellStrokeWidth
+      ..strokeWidth = SheetifyeDimensions.activeCellStrokeWidth
       ..style = PaintingStyle.stroke;
 
     final rect = PositionResolver.getCellRect(
@@ -43,7 +43,7 @@ class ActiveCellOverlayLayer implements OverlayLayer {
     canvas.drawRect(rect, paint);
 
     // Draw active cell handle
-    const handleSize = SheetifyDimensions.selectionHandleSize;
+    const handleSize = SheetifyeDimensions.selectionHandleSize;
     final handleRect = Rect.fromCenter(
       center: rect.bottomRight,
       width: handleSize,

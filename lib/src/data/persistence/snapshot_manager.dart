@@ -1,5 +1,5 @@
-import 'package:sheetify/src/data/persistence/workbook_serializer.dart';
-import 'package:sheetify/src/domain/entities/workbook.dart';
+import 'package:sheetifye/src/data/persistence/workbook_serializer.dart';
+import 'package:sheetifye/src/domain/entities/workbook.dart';
 
 class SnapshotManager {
   final List<Map<String, dynamic>> _snapshots = [];

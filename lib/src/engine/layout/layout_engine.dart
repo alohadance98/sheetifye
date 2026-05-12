@@ -1,6 +1,6 @@
-import 'package:sheetify/sheetify.dart';
-import 'package:sheetify/src/engine/layout/metrics_manager.dart';
-import 'package:sheetify/src/core/constants/sheetify_constants.dart';
+import 'package:sheetifye/sheetifye.dart';
+import 'package:sheetifye/src/engine/layout/metrics_manager.dart';
+import 'package:sheetifye/src/core/constants/sheetifye_constants.dart';
 
 class LayoutEngine {
   final MetricsManager rows;
@@ -9,8 +9,8 @@ class LayoutEngine {
   double _zoomScale = 1.0;
 
   LayoutEngine({
-    double defaultRowHeight = SheetifyConstants.defaultRowHeight,
-    double defaultColumnWidth = SheetifyConstants.defaultColumnWidth,
+    double defaultRowHeight = SheetifyeConstants.defaultRowHeight,
+    double defaultColumnWidth = SheetifyeConstants.defaultColumnWidth,
   }) : rows = MetricsManager(defaultSize: defaultRowHeight),
        columns = MetricsManager(defaultSize: defaultColumnWidth);
 

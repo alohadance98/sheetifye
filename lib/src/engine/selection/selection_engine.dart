@@ -1,4 +1,4 @@
-import 'package:sheetify/src/core/utils/grid_utils.dart';
+import 'package:sheetifye/src/core/utils/grid_utils.dart';
 
 class SelectionEngine {
   GridCoordinate? activeCell;

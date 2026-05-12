@@ -1,13 +1,13 @@
 import 'dart:typed_data';
-import 'package:sheetify/sheetify.dart' as entities;
-import 'package:sheetify/src/engine/sort/index_mapping_engine.dart';
-import 'package:sheetify/src/data/adapters/xlsx/xlsx_archive_reader.dart';
-import 'package:sheetify/src/data/adapters/xlsx/xlsx_shared_strings_parser.dart';
-import 'package:sheetify/src/data/adapters/xlsx/xlsx_workbook_parser.dart';
-import 'package:sheetify/src/data/adapters/xlsx/xlsx_sheet_parser.dart';
+import 'package:sheetifye/sheetifye.dart' as entities;
+import 'package:sheetifye/src/engine/sort/index_mapping_engine.dart';
+import 'package:sheetifye/src/data/adapters/xlsx/xlsx_archive_reader.dart';
+import 'package:sheetifye/src/data/adapters/xlsx/xlsx_shared_strings_parser.dart';
+import 'package:sheetifye/src/data/adapters/xlsx/xlsx_workbook_parser.dart';
+import 'package:sheetifye/src/data/adapters/xlsx/xlsx_sheet_parser.dart';
 
 class XlsxAdapter {
-  /// Orchestrates the parsing of an XLSX file into a Sheetify Workbook.
+  /// Orchestrates the parsing of an XLSX file into a Sheetifye Workbook.
   static entities.Workbook parse(
     Uint8List bytes, {
     String name = 'Imported Workbook',
