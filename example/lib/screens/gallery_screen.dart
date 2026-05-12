@@ -145,21 +145,6 @@ class GalleryScreen extends StatelessWidget {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => Scaffold(
-          appBar: AppBar(
-            title: Text(isStressTest ? 'Stress Test' : 'Spreadsheet Viewer'),
-            actions: [
-              if (!isStressTest)
-                IconButton(
-                  icon: const Icon(Icons.info_outline),
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text('This is a Sheetify live demo.')),
-                    );
-                  },
-                ),
-            ],
-          ),
           body: sheetify,
         ),
       ),

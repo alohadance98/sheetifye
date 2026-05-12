@@ -13,10 +13,7 @@ import 'package:sheetify/src/core/theme/sheetify_dimensions.dart';
 class SheetifyWorkbook extends ConsumerStatefulWidget {
   final bool readOnly;
 
-  const SheetifyWorkbook({
-    super.key,
-    this.readOnly = true,
-  });
+  const SheetifyWorkbook({super.key, this.readOnly = true});
 
   @override
   ConsumerState<SheetifyWorkbook> createState() => _SheetifyWorkbookState();
@@ -82,8 +79,8 @@ class _SheetifyWorkbookState extends ConsumerState<SheetifyWorkbook> {
           child: Column(
             children: [
               SheetifyToolbar(controller: controller),
-              if (state.readOnly)
-                _buildViewOnlyIndicator(context),
+              // if (state.readOnly)
+              //   _buildViewOnlyIndicator(context),
               const FormulaBar(),
               const Expanded(child: SheetGrid()),
               const SheetTabs(),
@@ -108,10 +105,7 @@ class _SheetifyWorkbookState extends ConsumerState<SheetifyWorkbook> {
             color: theme.statusIndicatorForegroundColor,
           ),
           const SizedBox(width: SheetifySpacingTokens.small),
-          Text(
-            'VIEW ONLY',
-            style: theme.statusLabelTextStyle,
-          ),
+          Text('VIEW ONLY', style: theme.statusLabelTextStyle),
           const Spacer(),
           Text(
             'Changes cannot be saved',
