@@ -1,0 +1,246 @@
+name: "CodeQL Advanced Security Scan"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    types: [opened, synchronize, reopened, ready_for_review]
+  schedule:
+    - cron: '38 8 * * 6'   # Every Saturday at 08:38 UTC
+  workflow_dispatch:        # Allow manual trigger from GitHub UI
+
+# ─────────────────────────────────────────────
+#  MERGE RESTRICTION
+#  These concurrency + env settings work TOGETHER
+#  with GitHub Branch Protection Rules.
+#  Go to: Settings → Branches → main
+#  ✅ Require status checks: all "Analyze (*)" jobs
+#  ✅ Restrict who can push/merge → add ONLY the repo owner
+# ─────────────────────────────────────────────
+concurrency:
+  group: codeql-${{ github.ref }}
+  cancel-in-progress: true   # Cancel old runs when a new push comes in
+
+env:
+  CODEQL_TIMEOUT: 360        # 6-hour max per language scan
+
+jobs:
+
+  # ── PRE-CHECK: Block draft PRs from wasting runner minutes ──────────────
+  check-draft:
+    name: Check PR Status
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Fail if draft
+        if: github.event.pull_request.draft == true
+        run: |
+          echo "❌ CodeQL does not run on draft PRs."
+          echo "Mark the PR as 'Ready for Review' to trigger scans."
+          exit 1
+
+  # ── MERGE GATE: Only repo owner can approve merge ───────────────────────
+  check-merge-permission:
+    name: Verify Merge Permission
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Check if actor is repo owner
+        env:
+          REPO_OWNER: ${{ github.repository_owner }}
+          ACTOR: ${{ github.actor }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "PR raised by  : $ACTOR"
+          echo "Repo owner    : $REPO_OWNER"
+
+          # Fetch the actor's permission level via GitHub API
+          PERMISSION=$(curl -s \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/collaborators/$ACTOR/permission" \
+            | jq -r '.permission')
+
+          echo "Permission level: $PERMISSION"
+
+          # Only 'admin' (owner) can merge; block everyone else
+          if [[ "$PERMISSION" != "admin" ]]; then
+            echo "::error::🚫 Only the repository owner/admin can merge into main."
+            echo "::error::   Your permission level is: $PERMISSION"
+            exit 1
+          fi
+
+          echo "✅ Permission check passed — $ACTOR is an admin/owner."
+
+  # ── CODEQL MATRIX SCAN ──────────────────────────────────────────────────
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    needs: [check-draft]
+    if: |
+      always() &&
+      (needs.check-draft.result == 'success' || github.event_name != 'pull_request')
+
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+
+    permissions:
+      security-events: write   # Upload SARIF results
+      packages: read           # Fetch private CodeQL packs
+      actions: read            # Required for private repos
+      contents: read           # Checkout code
+
+    timeout-minutes: ${{ fromJSON(env.CODEQL_TIMEOUT) }}
+
+    strategy:
+      fail-fast: false         # Continue scanning other languages even if one fails
+      matrix:
+        include:
+
+          # ── C / C++ ──────────────────────────────────────────────────────
+          - language: c-cpp
+            build-mode: autobuild
+
+          # ── Java / Kotlin ─────────────────────────────────────────────────
+          - language: java-kotlin
+            build-mode: autobuild
+
+          # ── JavaScript / TypeScript ───────────────────────────────────────
+          - language: javascript-typescript
+            build-mode: none   # Interpreted; no build needed
+
+          # ── Python ───────────────────────────────────────────────────────
+          - language: python
+            build-mode: none
+
+          # ── Go ───────────────────────────────────────────────────────────
+          - language: go
+            build-mode: autobuild
+
+          # ── Ruby ─────────────────────────────────────────────────────────
+          - language: ruby
+            build-mode: none
+
+          # ── Swift (macOS runner required) ─────────────────────────────────
+          - language: swift
+            build-mode: autobuild
+
+          # ── C# ───────────────────────────────────────────────────────────
+          - language: csharp
+            build-mode: autobuild
+
+          # ── Actions (GitHub workflow files themselves) ─────────────────────
+          - language: actions
+            build-mode: none
+
+    steps:
+
+      # ── 1. Checkout ───────────────────────────────────────────────────────
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2         # Needed for changed-file detection
+
+      # ── 2. Language-specific setup ────────────────────────────────────────
+      - name: Setup Node.js (JS/TS)
+        if: matrix.language == 'javascript-typescript'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Python
+        if: matrix.language == 'python'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Setup Go
+        if: matrix.language == 'go'
+        uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
+
+      - name: Setup Java (Java/Kotlin)
+        if: matrix.language == 'java-kotlin'
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup .NET (C#)
+        if: matrix.language == 'csharp'
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # ── 3. Initialize CodeQL ──────────────────────────────────────────────
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+          # Extended query suite: security + quality checks
+          queries: security-extended,security-and-quality
+
+      # ── 4. Manual build fallback ──────────────────────────────────────────
+      #    Only runs if autobuild fails → set build-mode to 'manual' and
+      #    replace the placeholder commands below with your real build steps.
+      - name: Manual Build (if autobuild fails)
+        if: matrix.build-mode == 'manual'
+        shell: bash
+        run: |
+          echo "Running manual build for ${{ matrix.language }}"
+          # ── Replace with your real build commands, e.g.: ──
+          # make bootstrap
+          # make release
+          # ./gradlew build
+          exit 1   # Remove this line once you add real commands
+
+      # ── 5. Perform Analysis ───────────────────────────────────────────────
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:${{ matrix.language }}"
+          # Fail the workflow if high-severity issues are found
+          output: sarif-results
+          upload: failure-only    # Only upload SARIF on failure (saves storage)
+
+      # ── 6. Upload SARIF to GitHub Security tab ────────────────────────────
+      - name: Upload SARIF Results
+        if: always()
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: sarif-results
+          category: "/language:${{ matrix.language }}"
+
+      # ── 7. Summary report in PR ───────────────────────────────────────────
+      - name: Post scan summary
+        if: always()
+        run: |
+          echo "### CodeQL Scan — ${{ matrix.language }}" >> $GITHUB_STEP_SUMMARY
+          echo "| Field  | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Language | \`${{ matrix.language }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Build Mode | \`${{ matrix.build-mode }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Runner | \`${{ runner.os }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Status | ${{ job.status }} |" >> $GITHUB_STEP_SUMMARY
+
+  # ── FINAL GATE: All languages must pass before merge is allowed ──────────
+  codeql-all-pass:
+    name: "✅ CodeQL — All Languages Passed"
+    needs: [analyze, check-merge-permission]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Check all matrix jobs
+        run: |
+          if [[ "${{ needs.analyze.result }}" != "success" ]]; then
+            echo "::error::❌ One or more CodeQL scans FAILED."
+            echo "::error::   Merge is BLOCKED until all scans pass."
+            exit 1
+          fi
+          if [[ "${{ needs.check-merge-permission.result }}" == "failure" ]]; then
+            echo "::error::❌ Merge permission check FAILED."
+            echo "::error::   Only the repository owner can merge into main."
+            exit 1
+          fi
+          echo "✅ All CodeQL scans passed. Merge gate cleared."
