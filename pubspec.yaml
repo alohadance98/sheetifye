@@ -11,13 +11,7 @@ topics:
   - csv
   - spreadsheet
   - viewer
-  - grid
-  - table
-  - virtualization
-  - data-table
-  - renderer
-  - office
-
+  
 environment:
   sdk: ^3.11.5
   flutter: ">=3.10.0"
