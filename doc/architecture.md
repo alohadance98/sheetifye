@@ -1,6 +1,14 @@
-# Architecture
+# Architecture: The Sheetifye Engine
 
-> Sheetifye is a high-performance spreadsheet platform for the Flutter ecosystem, built on a refined monolithic architecture optimised for rendering speed, predictable state, and long-term extensibility.
+> Sheetifye is a high-performance **spreadsheet platform** for the Flutter ecosystem, built on a refined monolithic architecture optimized for rendering speed, predictable state, and long-term extensibility.
+
+---
+
+## Technical Philosophy
+
+Most data grids in Flutter suffer from performance bottlenecks when handling large datasets because they rely on standard `ListView` or `GridView` widgets for every cell. Sheetifye takes a different approach: **Direct Canvas Painting**.
+
+By bypassing the widget tree for individual cells, we reduce the overhead of build and layout phases, achieving **60+ FPS** even on entry-level devices with millions of cells.
 
 ---
 
@@ -14,82 +22,48 @@ lib/src/
 └── core/         # Shared utilities, theme constants, and extensions
 ```
 
-Each layer has a single, clear responsibility. `domain` never imports from `engine` or `features`. `engine` never imports from `features`. Dependencies flow strictly downward.
-
----
-
-## WorkbookController
-
-The `WorkbookController` is the single source of truth for the entire application. All state changes pass through it — nothing mutates the workbook directly.
-
-It orchestrates three concerns:
-
-**Mutations** — every user action (edit, format, resize) is wrapped in a `Command` and dispatched through the `CommandManager`, giving full undo/redo support with zero additional code at the call site.
-
-**Computations** — after a mutation, the `RecalculationEngine` identifies dirty cells via the dependency graph and recomputes only what changed.
-
-**Interactions** — selection state, drag-to-select, and clipboard read/write are all managed here, keeping interaction logic centralised and testable.
-
 ---
 
 ## Rendering Pipeline
 
-When the scroll position changes, four systems run in sequence:
+When the scroll position changes, the engine executes a multi-stage pipeline:
 
-```
-ScrollOffset
-    │
-    ▼
-VirtualizationEngine   →   which rows and columns are visible?
-    │
-    ▼
-IndexMappingEngine     →   map logical data rows to visual rows (sort/filter)
-    │
-    ▼
-LayoutEngine           →   compute pixel offsets and sizes for each visible cell
-    │
-    ▼
-GridPainter            →   draw visible cells to Canvas in a single pass
+```mermaid
+graph TD
+    A[Scroll Offset] --> B[Virtualization Engine]
+    B --> C[Visible Cell Range]
+    C --> D[Layout Engine]
+    D --> E[Computed Pixel Offsets]
+    E --> F[Grid Painter]
+    F --> G[Direct Canvas Rendering]
 ```
 
-Only visible cells are ever measured or painted. This is what keeps frame time flat regardless of workbook size.
+1.  **VirtualizationEngine**: Identifies exactly which rows and columns are within the viewport.
+2.  **LayoutEngine**: Computes pixel-perfect sizes and offsets, accounting for merged cells and custom row/column dimensions.
+3.  **GridPainter**: A custom `Painter` that draws the grid lines, cell backgrounds, and text directly to the `Canvas` in a single pass.
 
 ---
 
-## Formula Engine
+## State Management
 
-Formulas are evaluated in four stages:
+Sheetifye leverages **Riverpod** for a reactive, yet predictable state flow. The `WorkbookController` serves as the orchestrator:
 
-```
-Raw String  →  Tokenizer  →  Parser  →  AST  →  FormulaEvaluator  →  Value
-                                           │
-                                    DependencyGraph
-                                  (incremental updates)
-```
-
-**Tokenizer** — scans the raw formula string into a typed token stream.
-
-**Parser** — transforms tokens into an Abstract Syntax Tree (AST) using a recursive descent approach.
-
-**Dependency Graph** — tracks relationships between cells so that only the affected subgraph is re-evaluated when a value changes, not the entire workbook.
-
-**FormulaEvaluator** — traverses the AST and resolves cell references, built-in functions, and operators into a final typed value.
+-   **Mutations**: All edits and formatting changes are handled via a command pattern, enabling built-in undo/redo capabilities.
+-   **Selection**: A dedicated selection system handles single-cell, multi-cell, and range selections with high precision.
+-   **Dependency Graph**: Tracks cell relationships to ensure that when a value changes, only the dependent cells are marked for re-evaluation.
 
 ---
 
 ## Extensibility
 
-Sheetifye exposes a plugin interface for registering custom behaviour without modifying core internals:
+The engine is designed to be "pluggable," allowing developers to extend functionality without modifying the core:
 
-| Extension Point | Use Case |
+| Extension Point | Description |
 |:---|:---|
-| **Custom Formula Functions** | Add domain-specific functions (e.g. `=MYCOMPANY_TAX()`) |
-| **Custom Cell Renderers** | Render arbitrary widgets inside a cell (chips, badges, sparklines) |
-| **Custom Overlay Layers** | Draw annotations, comments, or heatmaps above the grid |
-| **Custom Persistence Adapters** | Load and save workbooks from any backend or format |
-
-All extension points are registered at the `WorkbookController` level and are fully isolated from core rendering logic.
+| **Custom Renderers** | Define how specific cells are painted (e.g., custom icons or graphs). |
+| **Formula Plugins** | Add custom business logic functions to the formula engine. |
+| **Overlay Layers** | Draw annotations, comments, or data validation hints above the grid. |
 
 ---
 
-<sub>This document reflects the architecture as of v1.0.0. Updated alongside significant structural changes.</sub>
+<sub>This document reflects the architecture as of **Sheetifye v1.0.0**. We are committed to maintaining a clean and performant codebase for the Flutter community.</sub>

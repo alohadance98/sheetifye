@@ -1,46 +1,50 @@
 # Contributing to Sheetifye
 
-First off, thank you for considering contributing to Sheetifye! It's people like you that make the open-source community such an amazing place to learn, inspire, and create.
+First off, thank you for considering contributing to **Sheetifye**! It's people like you that make the Flutter community such an amazing place to build.
 
-## Code of Conduct
+This project is a high-performance **Excel viewer** and **spreadsheet engine**, and we aim for the highest standards of code quality and performance.
 
-This project and everyone participating in it is governed by the [Sheetifye Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+---
 
-## How Can I Contribute?
+## 🛠️ How Can I Contribute?
 
-### Reporting Bugs
+### 🐛 Reporting Bugs
+- **Search First**: Check if the issue already exists in our [Issue Tracker](https://github.com/vikaspoute/sheetifye/issues).
+- **Be Descriptive**: Include your Flutter version (`flutter doctor`), device info, and clear steps to reproduce.
+- **Provide Context**: Screenshots, GIFs, or a minimal reproduction project are extremely helpful.
 
-- **Check the FAQ**: See if your issue is already addressed in the [Troubleshooting Guide](doc/troubleshooting.md).
-- **Search Existing Issues**: Before opening a new issue, search to see if someone else has already reported it.
-- **Provide Details**: Include as much information as possible:
-    - Flutter version (`flutter doctor`)
-    - Device/Emulator info
-    - Steps to reproduce
-    - Expected vs. Actual behavior
-    - Screenshots or GIFs if applicable
+### ✨ Feature Requests
+- **Explain the Use Case**: Why is this feature needed? How does it improve the **spreadsheet experience** for developers?
+- **Propose a Design**: If you have an idea for the API or UI, we'd love to hear it.
 
-### Suggesting Enhancements
+### ⌨️ Pull Requests
+1.  **Fork & Branch**: Create your feature branch from `main`.
+2.  **Follow Style**: Adhere to the [Effective Dart](https://dart.dev/guides/language/effective-dart) guidelines.
+3.  **Test Your Changes**: If you're adding a feature, add unit or widget tests.
+4.  **Update Docs**: If you've changed public APIs, update the relevant markdown files.
+5.  **Lint Check**: Run `flutter analyze` and ensure zero warnings.
 
-- **Open an Issue**: Use the "Enhancement" tag.
-- **Explain the Use Case**: Why is this feature needed? Who would benefit?
-- **Be Specific**: Describe how the feature should work.
+---
 
-### Pull Requests
+## 🏗️ Technical Guidelines
 
-1. **Fork the repo** and create your branch from `main`.
-2. **If you've added code** that should be tested, add tests.
-3. **If you've changed APIs**, update the documentation.
-4. **Ensure the test suite passes**.
-5. **Make sure your code lints** (`flutter analyze`).
-6. **Follow the Clean Architecture**: Refer to the [Architecture Guide](doc/architecture.md).
+Sheetifye is built on a custom rendering engine. Before contributing to the core, please read the:
+- [Architecture Guide](doc/architecture.md)
+- [Performance Benchmarks](doc/benchmarks/benchmark_report.md)
 
-## Style Guide
+### Key Rules:
+- **Zero Heavy Dependencies**: We aim to keep the package lightweight.
+- **Canvas-First**: Core grid rendering must happen on the Canvas, not via individual Widgets per cell.
+- **Isolate Safety**: Heavy parsing or calculation logic should be isolate-aware.
 
-- Follow the [official Dart style guide](https://dart.dev/guides/language/effective-dart/style).
-- Use meaningful variable and function names.
-- Keep components small and focused.
-- Always include DartDoc for new public members.
+---
+
+## 📜 Code of Conduct
+Please be respectful and professional in all interactions. We follow the standard [Contributor Covenant](CODE_OF_CONDUCT.md).
 
 ## Questions?
+Feel free to open a [Discussion](https://github.com/vikaspoute/sheetifye/discussions) or reach out to the maintainers.
 
-Feel free to open a discussion or reach out to the maintainers.
+---
+
+<sub>Thank you for helping us build the best **Flutter spreadsheet package**!</sub>

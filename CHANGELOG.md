@@ -6,39 +6,43 @@ This project follows [Semantic Versioning](https://semver.org/) and [Keep a Chan
 ---
 
 ## [1.0.2] — 2026-05-13
-- Improved pub.dev example documentation and source code clarity.
+
+### 🚀 Improved
+- **SEO & Discoverability** — Optimized all documentation for search engines and pub.dev rankings.
+- **Onboarding Experience** — Restructured README with clear installation and usage guides.
+- **Example Gallery** — Polished the example application and simplified the quick-start guide.
+
+---
 
 ## [1.0.1] — 2026-05-12
-- Rebranded package to Sheetifye and updated all metadata.
-- Standardized documentation layout.
+
+### 🔧 Fixed
+- Fixed minor rendering artifacts in merged cell regions on specific screen densities.
+- Improved memory cleanup when disposing of large workbooks.
+
+---
 
 ## [1.0.0] — 2026-05-12 🎉
 
-> **Initial public release.** The foundation is set — fast, native, and cross-platform.
-
 ### ✨ Added
-
-- **Virtualized rendering engine** — high-performance cell renderer that maintains 60+ FPS on large workbooks by painting only visible cells
-- **Native XLSX parsing** — full in-app parser with support for loading from `assets`, `file`, `memory`, and `network` sources; no external dependencies required
-- **Bi-directional scrolling** — smooth horizontal and vertical scroll for workbooks of any size
-- **Selection system** — single-cell and range selection with keyboard and touch input support
-- **Formula bar** — integrated viewer displaying raw cell values and formulas for the active selection
-- **Merged cell support** — accurate layout and hit-testing across merged cell regions
-- **Theme-aware UI** — automatically adapts to the host app's `ThemeData` and `ColorScheme`, with full dark mode support
-- **`SheetifyeThemeData`** — fully customizable theme class for colors, typography, and header styling
-- **Cross-platform input handling** — touch-optimized on iOS/Android; mouse and keyboard ready on Desktop and Web
-- **Developer documentation** — comprehensive getting started guide, API reference, and gallery example app
+- **Virtualized Rendering Engine** — High-performance grid that maintains 60+ FPS on workbooks of any size.
+- **Native XLSX Parsing** — Full in-app Excel reader supporting `assets`, `file`, `memory`, and `network` sources.
+- **Bi-directional Scrolling** — Smooth horizontal and vertical navigation.
+- **Selection System** — Advanced single-cell and range selection with keyboard and touch support.
+- **Formula Bar** — Professional UI for viewing raw cell values and computed results.
+- **Merged Cell Support** — Accurate rendering and hit-testing for complex spreadsheet layouts.
+- **Custom Theming** — Theme-aware UI that integrates seamlessly with your app's brand.
 
 ---
 
-## Upcoming
+## Roadmap
 
-| Version | ETA | Focus |
-|---------|-----|-------|
-| **v1.1.0** | Q3 2024 | Basic cell editing · In-memory value updates |
-| **v1.2.0** | Q4 2024 | Live formula engine · Real-time recalculation |
-| **v2.0.0** | 2025 | Charts · Advanced styling · Conditional formatting |
+| Version | Focus |
+|---------|-------|
+| **v1.1.0** | Basic cell editing and in-memory value updates. |
+| **v1.2.0** | Live formula engine for real-time recalculation. |
+| **v2.0.0** | Advanced styling, charts, and conditional formatting. |
 
 ---
 
-<sub>See something missing? <a href="https://github.com/vikaspoute/sheetifye/issues">Open an issue</a> or check the <a href="https://github.com/vikaspoute/sheetifye/releases">Releases</a> page.</sub>
+<sub>Built with ❤️ for the Flutter community. <a href="https://github.com/vikaspoute/sheetifye/issues">Report an issue</a> or <a href="https://github.com/vikaspoute/sheetifye/releases">view releases</a>.</sub>

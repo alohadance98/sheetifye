@@ -1,21 +1,12 @@
-# Sheetifye Gallery
+# Sheetifye Gallery & Quick Start
 
-A comprehensive demonstration of **Sheetifye**, a high-performance spreadsheet engine for Flutter. This gallery showcases how to integrate native XLSX parsing, virtualized rendering, and custom theming into your own applications.
-
----
-
-## 🚀 Features Demonstrated
-- **Native Loading**: Loading `.xlsx` files from Assets, Network, and Memory.
-- **Performance**: Bi-directional scrolling with millions of cells at 60+ FPS.
-- **Theming**: Dynamic switching between Light and Dark modes with custom brand colors.
-- **Interactions**: Cell selection, range selection, and formula bar integration.
-- **Layout**: Handling merged cells and dynamic column/row measurements.
+Welcome to the **Sheetifye** example gallery. This project demonstrates how to build a professional **spreadsheet UI in Flutter** using our high-performance engine.
 
 ---
 
-## 🛠️ Quick Start (Single-File Example)
+## 🚀 Quick Start (Copy-Paste)
 
-If you want to get started with the most basic implementation, copy this into your `main.dart`:
+If you want to add a **spreadsheet viewer** to your app in under a minute, copy this into your `main.dart`:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -24,60 +15,50 @@ import 'package:sheetifye/sheetifye.dart';
 
 void main() {
   runApp(
-    // 1. Wrap your app in a ProviderScope
-    const ProviderScope(
+    const ProviderScope( // 1. Wrap with ProviderScope
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: SpreadsheetHome(),
+        home: Scaffold(
+          body: Sheetifye.asset('assets/data.xlsx'), // 2. Drop the widget
+        ),
       ),
     ),
   );
-}
-
-class SpreadsheetHome extends StatelessWidget {
-  const SpreadsheetHome({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Sheetifye Demo')),
-      // 2. Drop in the Sheetifye widget
-      body: Sheetifye.asset(
-        'assets/data.xlsx',
-        readOnly: true, // Set to false to enable editing (v1.1+)
-      ),
-    );
-  }
 }
 ```
 
 ---
 
-## 🏃 How to Run the Full Gallery
+## 🎨 Features Demonstrated
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/vikaspoute/sheetifye.git
-   cd sheetifye/example
-   ```
+- **Multi-Format Support**: Native loading of both **XLSX** and **CSV** files.
+- **Dynamic Theming**: Switching between light and dark modes with custom accent colors.
+- **Performance Stress Tests**: Smooth scrolling with datasets containing millions of cells.
+- **Selection API**: How to listen to cell selections and interact with the grid programmatically.
+- **Formula Bar Integration**: Syncing a custom UI with the active sheet's data.
 
-2. **Install dependencies**:
-   ```bash
-   flutter pub get
-   ```
+---
 
-3. **Launch the app**:
-   ```bash
-   flutter run
-   ```
+## 🏃 Running the Gallery
+
+1.  **Clone & Navigate**:
+    ```bash
+    git clone https://github.com/vikaspoute/sheetifye.git
+    cd sheetifye/example
+    ```
+2.  **Install & Launch**:
+    ```bash
+    flutter pub get
+    flutter run
+    ```
 
 ---
 
 ## 📂 Project Structure
-- `lib/main.dart`: App entry point and `ProviderScope` setup.
-- `lib/app.dart`: Main `MaterialApp` and theme configuration.
-- `lib/screens/gallery_screen.dart`: The core UI showcasing different loading sources and performance tests.
+
+- `lib/main.dart`: Simplified entry point.
+- `lib/app.dart`: App-level configuration and theme.
+- `lib/screens/gallery_screen.dart`: The core UI showcasing different loading sources and performance benchmarks.
 
 ---
 
-<sub>Built with ❤️ by [Vikas Poute](https://github.com/vikaspoute). Find it useful? Give us a ⭐ on [GitHub](https://github.com/vikaspoute/sheetifye)!</sub>
+<sub>Built with ❤️ for the Flutter community. If you find this example helpful, give us a ⭐ on [GitHub](https://github.com/vikaspoute/sheetifye)!</sub>
