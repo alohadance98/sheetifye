@@ -21,7 +21,7 @@ class Sheet {
   Sheet({
     required this.id,
     required this.name,
-    Map<String, Cell>? cells,
+    this.cells = const {},
     this.columnWidths = const [],
     this.rowHeights = const [],
     this.rowCount = 1000,
@@ -31,8 +31,7 @@ class Sheet {
     MergedCellManager? mergedCells,
     IndexMappingEngine? rowIndexManager,
     VisibilityManager? visibilityManager,
-  }) : cells = cells != null ? Map<String, Cell>.from(cells) : <String, Cell>{},
-       mergedCells = mergedCells ?? MergedCellManager(),
+  }) : mergedCells = mergedCells ?? MergedCellManager(),
        rowIndexManager = rowIndexManager ?? IndexMappingEngine(rowCount),
        visibilityManager = visibilityManager ?? VisibilityManager();
 
@@ -73,14 +72,12 @@ class Workbook {
   final String name;
   final List<Sheet> sheets;
   final int activeSheetIndex;
-  final int revision;
 
   const Workbook({
     required this.id,
     required this.name,
     this.sheets = const [],
     this.activeSheetIndex = 0,
-    this.revision = 0,
   });
 
   Sheet get activeSheet => sheets[activeSheetIndex];
@@ -90,14 +87,12 @@ class Workbook {
     String? name,
     List<Sheet>? sheets,
     int? activeSheetIndex,
-    int? revision,
   }) {
     return Workbook(
       id: id ?? this.id,
       name: name ?? this.name,
       sheets: sheets ?? this.sheets,
       activeSheetIndex: activeSheetIndex ?? this.activeSheetIndex,
-      revision: revision ?? this.revision,
     );
   }
 }
