@@ -18,20 +18,16 @@ class ScrollingEngine {
     final x = col * colWidth;
     final y = row * rowHeight;
 
-    if (horizontalController.hasClients) {
-      horizontalController.animateTo(
-        x,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    }
-    if (verticalController.hasClients) {
-      verticalController.animateTo(
-        y,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    }
+    horizontalController.animateTo(
+      x,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+    verticalController.animateTo(
+      y,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 
   void handleAutoScroll(Offset localPosition, Size viewportSize) {

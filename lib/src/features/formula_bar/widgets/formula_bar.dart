@@ -5,72 +5,23 @@ import 'package:sheetifye/src/core/theme/sheetifye_spacing_tokens.dart';
 import 'package:sheetifye/src/core/theme/sheetifye_dimensions.dart';
 import 'package:sheetifye/src/features/workbook/state/workbook_state.dart';
 
-class FormulaBar extends ConsumerStatefulWidget {
+class FormulaBar extends ConsumerWidget {
   const FormulaBar({super.key});
 
   @override
-  ConsumerState<FormulaBar> createState() => _FormulaBarState();
-}
-
-class _FormulaBarState extends ConsumerState<FormulaBar> {
-  late TextEditingController _controller;
-  late FocusNode _focusNode;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController();
-    _focusNode = FocusNode();
-
-    _focusNode.addListener(() {
-      if (_focusNode.hasFocus) {
-        final state = ref.read(workbookProvider);
-        if (!state.readOnly && !state.isEditing) {
-          ref.read(workbookProvider.notifier).setEditing(true);
-        }
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(workbookProvider);
     final theme = SheetifyeTheme.of(context);
     final activeCell = state.activeCell;
-
-    // Determine the current value to display
-    String displayValue = '';
-    if (state.isEditing) {
-      displayValue = state.editValue ?? '';
-    } else if (activeCell != null) {
-      final cell = state
-          .workbook
-          .activeSheet
-          .cells['${activeCell.row},${activeCell.column}'];
-      displayValue = cell?.rawInput ?? cell?.value?.toString() ?? '';
-    }
-
-    // Keep controller text in sync when not focused or when value changed externally
-    if (!_focusNode.hasFocus && _controller.text != displayValue) {
-      _controller.text = displayValue;
-    }
-
-    ref.listen<WorkbookState>(workbookProvider, (previous, next) {
-      if (next.isEditing &&
-          next.editValue != null &&
-          next.editValue != _controller.text) {
-        _controller.text = next.editValue!;
-      } else if (!next.isEditing && previous?.isEditing == true) {
-        _controller.clear();
-      }
-    });
+    final cellValue = activeCell != null
+        ? state
+                  .workbook
+                  .activeSheet
+                  .cells['${activeCell.row},${activeCell.column}']
+                  ?.value
+                  ?.toString() ??
+              ''
+        : '';
 
     return Container(
       height: theme.formulaBarHeight,
@@ -102,32 +53,14 @@ class _FormulaBarState extends ConsumerState<FormulaBar> {
             ),
           ),
           const SizedBox(width: SheetifyeSpacingTokens.medium),
-          // Formula Input Field
+          // Formula / Value Text
           Expanded(
-            child: TextField(
-              controller: _controller,
-              focusNode: _focusNode,
-              enabled: !state.readOnly,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                isDense: true,
-                hintText: state.readOnly
-                    ? ''
-                    : 'Enter value or formula (e.g. =A1+B1)',
-                hintStyle: theme.formulaBarTextStyle.copyWith(
-                  color: theme.formulaBarForegroundColor.withValues(alpha: .5),
-                ),
-              ),
+            child: Text(
+              cellValue.isEmpty ? '(empty)' : cellValue,
               style: theme.formulaBarTextStyle.copyWith(
                 color: theme.formulaBarForegroundColor,
               ),
-              onChanged: (value) {
-                ref.read(workbookProvider.notifier).updateEditValue(value);
-              },
-              onSubmitted: (value) {
-                ref.read(workbookProvider.notifier).commitEdit(value);
-                _focusNode.unfocus();
-              },
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
