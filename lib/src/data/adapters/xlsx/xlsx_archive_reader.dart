@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:xml/xml.dart';
@@ -16,7 +17,9 @@ class XlsxArchiveReader {
     if (file == null) return null;
 
     try {
-      final xml = XmlDocument.parse(String.fromCharCodes(file.content));
+      final xml = XmlDocument.parse(
+        utf8.decode(file.content, allowMalformed: true),
+      );
       _xmlCache[path] = xml;
       return xml;
     } catch (e) {

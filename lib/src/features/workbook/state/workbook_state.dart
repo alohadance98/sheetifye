@@ -1,4 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// Riverpod 3.x moved StateNotifier / StateNotifierProvider out of the default
+// export; they now live in the legacy entrypoint.
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:sheetifye/sheetifye.dart';
 import 'package:sheetifye/src/engine/formula/recalculation_engine.dart';
 import 'package:sheetifye/src/engine/commands/command_manager.dart';
